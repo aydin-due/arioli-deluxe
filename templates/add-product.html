@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% set active_page = "" %}
+{% set admin = admin %}
+
+{% block title %}Agrega {% endblock %}
+
+{% block content %}
+<section class="py-5" style="--bs-primary: rgb(255,173,5);--bs-primary-rgb: 255,173,5;--bs-secondary: rgb(91,140,23);--bs-secondary-rgb: 91,140,23;--bs-light: #f5f6f8;--bs-light-rgb: 245,246,248;--bs-dark: rgb(116,117,114);--bs-dark-rgb: 116,117,114;--bs-body-color: rgb(33,2,3);--bs-body-bg: #fff;background: var(--bs-light);">
+    <h1 style="text-align: center;font-family: Amaranth, sans-serif;">Agrega un producto</h1>
+    <div class="card"></div>
+    <div class="container py-5">
+        <div class="card"></div>
+        <div class="card">
+            <div class="card-body text-center d-flex flex-column justify-content-xl-end align-items-xl-center" style="padding-top: 30px;">
+                <form class="justify-content-xl-center align-items-xl-center" method="post" enctype="multipart/form-data">
+                    <div class="d-xl-flex justify-content-xl-center">
+                        <div class="mb-3">
+                            <h4 style="font-family: Amaranth, sans-serif;margin-bottom: 20px;">Datos del producto</h4>
+                            <input class="form-control" type="text" name="name" placeholder="Nombre" style="margin-bottom: 30px;font-family: 'Be Vietnam Pro', sans-serif;" required>
+                            <textarea class="form-control" placeholder="Descripción" name="description" style="margin-bottom: 30px;" required></textarea>
+                            <input class="form-control" type="number" style="margin-bottom: 20px;" name="price" placeholder="Precio" min="0" required>
+                            <input class="form-control" type="file" name="image" accept="image/*" style="margin-bottom: 20px;" required>
+                        </div>
+                        <div>
+                            <div id="wrapper">
+                                <h4 style="font-family: Amaranth, sans-serif;margin-bottom: 20px;">Inserta los ingredientes</h4>
+                                <div class="d-xl-flex justify-content-sm-between justify-content-xl-around align-items-xl-start" id="ingredient" style="margin: 1px;margin-left: 50px;width: 500px;">
+                                    <input class="form-control" type="number" placeholder="Cantidad" style="width: 140px;" name="quantity" min="1" required>
+                                    <input class="form-control" type="text" name="unit" placeholder="Medida" style="margin-bottom: 30px;font-family: 'Be Vietnam Pro', sans-serif;width: 110px;" required>
+                                    <input class="form-control" type="text" name="ingredient" placeholder="Ingrediente" style="margin-bottom: 30px;font-family: 'Be Vietnam Pro', sans-serif;width: 200px;" required>
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="delete" style="margin-top:15px;" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-x-circle-fill text-danger">
+                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="d-xl-flex justify-content-sm-between justify-content-xl-around align-items-xl-start mb-3" style="margin: 1px;margin-left: 50px;width: 500px;">
+                                <button class="btn btn-primary" type="button" style="background: var(--bs-body-color);border-style: none;font-family: 'Be Vietnam Pro', sans-serif;" id="btn">Agregar ingrediente</button>
+                            </div>
+                            <div class="d-xl-flex justify-content-sm-between justify-content-xl-around align-items-xl-start" style="margin: 1px;margin-left: 50px;width: 500px;">
+                                <small class="form-text">Separa los pasos de la receta con un salto de línea</small>
+                            </div>
+                            <div class="d-xl-flex justify-content-sm-between justify-content-xl-around align-items-xl-start" style="margin: 1px;margin-left: 50px;width: 500px;">
+                                <textarea class="form-control" placeholder="Pasos" name="procedure" style="margin-bottom: 30px;margin-right: 5px;margin-left: 5px;margin-top: 10px;" required></textarea>
+                            </div>
+                            <div class="d-xl-flex justify-content-sm-between justify-content-xl-around align-items-xl-start" style="margin: 1px;margin-left: 50px;margin-bottom: 20px; width: 500px;">
+                                <div class="row">
+                                    <div class="col"><small class="form-text">Especifica la cantidad de porciones de la receta</small></div>
+                                    <div class="col"><input class="form-control" type="number" placeholder="Porciones" style="width: 140px;" name="portions" min="1" required></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="submit" style="background: var(--bs-secondary);border-style: none;font-family: 'Be Vietnam Pro', sans-serif;">Añadir producto</button>
+                    {% if error %}
+                    <div class="mb-3">
+                        <p class="fw-bold text-success mb-2", style="color: #c1292e !important;font-family: 'Be Vietnam Pro', sans-serif;"">{{ error }}</p>
+                    </div>
+                    {% endif %}
+                    <script>
+                        const fields = document.querySelector("#ingredients");
+                        const btn = document.querySelector("#btn");
+                        var deleteBtns = document.querySelectorAll("#delete");
+
+                            btn.addEventListener("click", function () {
+                                $("#ingredient").clone().find("input").val("").end().appendTo("#wrapper");
+                                deleteBtns = document.querySelectorAll("#delete");
+                                deleteBtns.forEach((btn, index) => {
+                                    btn.addEventListener("click", function () {
+                                        console.log(deleteBtns.length);
+                                        console.log('a');
+                                        btn.parentElement.remove();
+                                    });
+                                });
+                        });
+
+                    </script>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- <script>
+    $(document).ready(function () {
+        console.log('a');
+        $("#delete").click(function () {
+            $(this).parent().remove();
+        });
+    });
+</script> -->
+{% endblock %}

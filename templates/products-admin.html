@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% set active_page = "products" %}
+{% set admin = admin %}
+
+{% block title %}Productos{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="border-radius: 50px;">
+    <div class="row mb-4 mb-lg-5">
+        <div class="col-md-8 col-xl-6 text-center mx-auto">
+            <h1 style="font-family: Amaranth, sans-serif;color: var(--bs-body-color);">Nuestros Postres</h1>
+            <p style="width: 600px;">Puedes navegar nuestra colección de muffins, brownies y galletas veganas, o también puedes realizar una búsqueda de tu producto preferido.</p>
+        </div>
+    </div>
+    <form method="POST">
+        <div class="row mb-4 mb-lg-5" style="text-align: center;">
+            <div class="col-lg-6 col-xl-7 d-lg-flex d-xl-flex justify-content-lg-end justify-content-xl-end">
+                <input class="placeholder border rounded border-1 d-lg-flex justify-content-lg-start align-items-lg-center" name="search" type="text" style="background: var(--bs-white);width: 300px;padding: 10px;" placeholder="Nombre del producto">
+            </div>
+            <div class="col d-lg-flex d-xl-flex justify-content-lg-start justify-content-xl-start">
+                <button class="btn btn-primary shadow" type="submit" style="border-style: none;background: var(--bs-body-color);font-family: 'Be Vietnam Pro', sans-serif;">Buscar</button>
+            </div>
+        </div>
+    </form>
+    <div class="row mb-4 mb-lg-5" style="text-align: center;">
+        <div class="col d-lg-flex d-xl-flex justify-content-lg-start justify-content-xl-center"><a class="btn btn-primary shadow" role="button" href="/add-product" style="border-style: none;background: var(--bs-body-color);font-family: 'Be Vietnam Pro', sans-serif;">Agregar productos</a></div>
+    </div>
+    <div class="row mb-4 mb-lg-5" style="text-align: center;">
+        {% if error %}
+        <div class="mb-3">
+            <p class="fw-bold text-success mb-2", style="color: #c1292e !important;font-family: 'Be Vietnam Pro', sans-serif;"">{{ error }}</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<div class="container d-xl-flex justify-content-evenly flex-wrap align-items-xl-center">
+    {% for product in products %}
+    <div class="card" style="width: 350px;margin-bottom: 100px;">
+        <div class="card-body" style="padding-top: 100px;"><img class="d-lg-flex" style="border-radius: 50%;width: 150px;height: 150px;box-shadow: 0px 10px 20px 4px var(--bs-gray-500);position: absolute;top: -50px;left: 50%;-webkit-transform: translateX(-50%);transform: translateX(-50%);" src="{{url_for('image', filename=product.image)}}">
+            <h4 class="card-title" style="font-family: Amaranth, sans-serif;text-align: center;padding-top: 30px;">{{product.name}}</h4>
+            <p class="card-text">{{product.description}}</p>
+            <div class="row d-xl-flex justify-content-xl-center" style="margin-bottom: 20px;">
+                <div class="col-xl-6 d-xl-flex justify-content-xl-end">
+                    <a class="btn btn-primary d-xl-flex" href="{{url_for('recipe', id_product=product._id)}}" style="border-style: none;background: var(--bs-body-color);font-family: 'Be Vietnam Pro', sans-serif;">Ver receta</a>
+                </div>
+            </div>
+            <div class="row d-xl-flex justify-content-xl-center">
+                <div class="col-xl-5 d-xl-flex justify-content-xl-end">
+                    <a class="btn btn-primary d-xl-flex" role="button" href="{{url_for('delete_product', id_product=product._id)}}" style="border-style: none;background: var(--bs-danger);font-family: 'Be Vietnam Pro', sans-serif;">Eliminar</a>
+                </div>
+                <div class="col-xl-5 d-xl-flex justify-content-xl-end">
+                    <a class="btn btn-primary d-xl-flex" role="button" href="{{url_for('update_product', id_product=product._id)}}" style="border-style: none;background: var(--bs-secondary);font-family: 'Be Vietnam Pro', sans-serif;">Editar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

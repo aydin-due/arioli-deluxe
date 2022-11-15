@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% set active_page = "cart" %}
+{% set admin = admin %}
+
+{% block title %}Mi carrito{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="border-radius: 50px;">
+    <div class="row mb-4 mb-lg-5">
+        <div class="col-md-8 col-xl-6 text-center mx-auto">
+            <h1 style="font-family: Amaranth, sans-serif;color: var(--bs-body-color);">Carrito de compras</h1>
+        </div>
+    </div>
+    {% if cart %}
+</div>
+<div class="container">
+    <form method="POST">
+    <div class="card" style="margin-bottom: 50PX;">
+        <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table cart">
+                        <thead>
+                            <tr>
+                                <th style="width: 500px;">PRODUCTO</th>
+                                <th>PRECIO</th>
+                                <th>CANTIDAD</th>
+                                <th>TOTAL</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in cart['products'] %}
+                            <tr id="product-container">
+                                <td class="d-lg-flex d-xl-flex align-items-lg-center align-items-xl-center">
+                                    <div class="col-lg-2 col-xl-3"><img src="{{url_for('image', filename=product.image)}}" width="100" style="border-radius: 10%;width: 80px;height: 80px;"></div>
+                                    <div class="col-lg-7 col-xl-8">
+                                        <p>{{product.name}}</p>
+                                        <h6 class="text-muted mb-2">{{product.description}}</h6>
+                                    </div>
+                                </td>
+                                <td style="vertical-align: middle;" id="price">${{product.price}}</td>
+                                <td style="vertical-align: middle;">
+                                    <input type="number" placeholder="Cantidad" value={{product.quantity}} style="width: 140px;background-clip: padding-box;border: 1px solid #ced4da;border-radius: 1rem;padding: .6rem 1.5rem;" name="quantity" min="1">
+                                </td>
+                                <td style="vertical-align: middle;" id="unit-total">${{product.unit_total}}</td>
+                                <td style="vertical-align: middle;"><a href="{{url_for('remove_from_cart', id_product=product._id)}}"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-x-circle-fill text-danger">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"></path>
+                                </svg></a></td>
+                            </tr>
+                            {% endfor %}
+                            <tr id="product-container">
+                                <td class="vertical-align: middle;"></td>
+                                <td style="vertical-align: middle;"></td>
+                                <td style="vertical-align: middle;"></td>
+                                <td style="vertical-align: middle;" id="total">${{cart.total}}</td>
+                                <td style="vertical-align: middle;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4 mb-lg-5" style="text-align: center;margin-bottom: 50px;">
+            <div class="col d-lg-flex d-xl-flex justify-content-lg-start justify-content-xl-center align-items-xl-center"><button type="submit" class="btn btn-primary shadow" style="border-style: none;background: var(--bs-body-color);font-family: 'Be Vietnam Pro', sans-serif;margin-bottom: 50px;">Realizar pedido</button></div>
+        </div>
+    </form>
+</div>
+{% endif %}
+{% if error %}
+<div class="container py-5" style="border-radius: 50px;">
+    <div class="row mb-4 mb-lg-5">
+        <div class="col-md-8 col-xl-6 text-center mx-auto">
+            <p class="fw-bold text-success mb-2", style="color: #c1292e !important;font-family: 'Be Vietnam Pro', sans-serif;"">{{error}}</p>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<script>
+    const quantityInputs = document.querySelectorAll('input[name="quantity"]')
+    const productContainers = document.querySelectorAll('#product-container')
+
+    quantityInputs.forEach((input, index) => {
+        input.addEventListener('change', () => {
+            const productId = productContainers[index].dataset.id
+            const quantity = input.value
+            const price = productContainers[index].querySelector('#price').innerHTML.substring(1)
+            const unitTotal = productContainers[index].querySelector('#unit-total').innerHTML.substring(1)
+            productContainers[index].querySelector('#unit-total').innerHTML = `$${parseFloat(quantity) * parseFloat(price)}`
+            const total = document.querySelector('#total').innerHTML.substring(1)
+            document.querySelector('#total').innerHTML = `$${parseFloat(total) - parseFloat(unitTotal) + parseFloat(quantity) * parseFloat(price)}`
+        })
+    })
+</script>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% set active_page = "orders" %}
+{% set admin = admin %}
+
+{% block title %}Receta{% endblock %}
+
+{% block content %}
+    <div class="container py-5" style="border-radius: 50px;">
+        <div class="row mb-4 mb-lg-5">
+            <div class="col-md-8 col-xl-6 text-center d-flex flex-column justify-content-start align-items-start align-content-start mx-auto" style="text-align: left;">
+                <h1 style="font-family: Amaranth, sans-serif;color: var(--bs-body-color);margin-bottom: 20px;text-align: left;">{{product.name}}</h1>
+                <h6 class="text-muted mb-2" style="text-align: left;margin-bottom: 20px;">{{product.description}}</h6>
+                <div class="row">
+                    <form method="POST">
+                        <div class="col-xl-12 d-flex align-items-end" style="height: 60px;">
+                            <input type="number" min="1" placeholder="Porciones" name="portions" value="{{portions}}" style="width: 150px;border: 1px solid #ced4da;border-radius: 1rem;padding: .6rem 1.5rem;text-align: left;background: var(--bs-light);" name="portion">
+                            <button class="btn btn-primary shadow" type="submit" style="border-style: none;background: var(--bs-body-color);font-family: 'Be Vietnam Pro', sans-serif;margin-left: 50px;">Convertir porciones</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-8 col-xl-6 text-center mx-auto">
+                <img src="{{url_for('image', filename=product.image)}}" width="100" style="border-radius: 50%;width: 150px;height: 150px;">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="card" style="margin-bottom: 100PX;">
+            <div class="card-body">
+                <div class="row" style="padding: 20px;">
+                    <div class="col-xl-6">
+                        <h4>Ingredientes</h4>
+                        <ul style="color: var(--bs-body-color);">
+                            {% for ingredient in recipe.ingredients %}
+                                <li>{{ingredient.quantity}} {{ingredient.unit}} de {{ingredient.name}}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h4>Pasos</h4>
+                        <ol style="color: var(--bs-body-color);">
+                            {% for step in recipe.steps %}
+                                <li>{{step}}</li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
