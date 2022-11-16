@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% set active_page = "index" %}
+{% set admin = admin %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+    <section class="py-5" style="--bs-primary: rgb(255,173,5);--bs-primary-rgb: 255,173,5;--bs-secondary: rgb(91,140,23);--bs-secondary-rgb: 91,140,23;--bs-light: #f5f6f8;--bs-light-rgb: 245,246,248;--bs-dark: rgb(116,117,114);--bs-dark-rgb: 116,117,114;--bs-body-color: rgb(33,2,3);--bs-body-bg: #fff;background: transparent;">
+        <div class="container py-5" style="--bs-primary: rgb(255,173,5);--bs-primary-rgb: 255,173,5;--bs-secondary: rgb(91,140,23);--bs-secondary-rgb: 91,140,23;--bs-light: #f5f6f8;--bs-light-rgb: 245,246,248;--bs-dark: rgb(116,117,114);--bs-dark-rgb: 116,117,114;--bs-body-color: rgb(33,2,3);--bs-body-bg: #fff;font-family: Amaranth, sans-serif;">
+            <div class="row mb-4 mb-lg-5">
+                <div class="col-md-8 col-xl-6 text-center mx-auto">
+                    <p class="fw-bold text-success mb-2"></p>
+                    <h1 class="fw-bold" style="font-family: Amaranth, sans-serif;">Crea la cuenta de tu restaurante</h1>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-6 col-xl-5">
+                    <div class="card">
+                        <div class="card-body text-center text-body d-flex flex-column align-items-center" style="padding-top: 30px;">
+                            <form method="post" style="margin-bottom: 10px;padding-right: 50px;padding-left: 50px;">
+                                <div class="mb-3"></div><label class="form-label" style="font-family: 'Be Vietnam Pro', sans-serif;">Nombre del restaurante</label>
+                                <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Nombre" style="margin-bottom: 20px;font-family: 'Be Vietnam Pro', sans-serif;"><label class="form-label" style="font-family: 'Be Vietnam Pro', sans-serif;">Correo electrónico</label><input class="form-control" type="password" name="password" placeholder="Correo electrónico" style="margin-bottom: 20px;font-family: 'Be Vietnam Pro', sans-serif;"><label class="form-label" style="font-family: 'Be Vietnam Pro', sans-serif;">Contraseña</label><input class="form-control" type="password" name="password" placeholder="Contraseña" style="margin-bottom: 20px;font-family: 'Be Vietnam Pro', sans-serif;"><label class="form-label" style="font-family: 'Be Vietnam Pro', sans-serif;">Descripción del restaurante</label><textarea class="form-control" placeholder="Descripción" style="margin-bottom: 20px;font-family: 'Be Vietnam Pro', sans-serif;"></textarea><label class="form-label" style="font-family: 'Be Vietnam Pro', sans-serif;">Logo del restaurante</label><input class="form-control" type="file" style="margin-bottom: 20px;font-family: 'Be Vietnam Pro', sans-serif;"><label class="form-label" style="font-family: 'Be Vietnam Pro', sans-serif;">Dirección del restaurante</label><input class="form-control" type="password" name="password" placeholder="Dirección" style="margin-bottom: 20px;font-family: 'Be Vietnam Pro', sans-serif;"><label class="form-label" style="font-family: 'Be Vietnam Pro', sans-serif;">Categoría de la comida que se ofrece</label><input class="form-control" type="password" name="password" placeholder="Categoría de comida" style="margin-bottom: 30px;font-family: 'Be Vietnam Pro', sans-serif;"></div>
+                                <div class="mb-3"><button class="btn btn-primary shadow d-block w-100" type="submit" style="background: var(--bs-orange);border-style: none;font-family: 'Be Vietnam Pro', sans-serif;">Registrar restaurante</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

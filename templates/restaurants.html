@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% set active_page = "index" %}
+{% set admin = admin %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+    <div class="container py-5" style="border-radius: 50px;">
+        <div class="row mb-4 mb-lg-5">
+            <div class="col-md-8 col-xl-7 text-center d-flex flex-column justify-content-center mx-auto align-items-xl-center">
+                <h1 style="font-family: Amaranth, sans-serif;color: var(--bs-orange);">Consulta los restaurantes</h1>
+                <p style="width: 400px;color: var(--bs-white);">Visita el restaurante en el que te encuentras para comenzar a realizar tu orden.</p>
+            </div>
+        </div>
+        <div class="row d-xl-flex mb-4 mb-lg-5" style="text-align: center;">
+            <div class="col-xl-5 d-xl-flex justify-content-xl-end"><input class="d-xl-flex justify-content-xl-center align-items-xl-center" type="search" style="border-radius: 20px;height: 44px;width: 250px;padding-left: 10px;" placeholder="Nombre del restaurante"></div>
+            <div class="col-xl-3 d-xl-flex justify-content-xl-center"><select style="border-radius: 20px;padding-left: 10px;width: 250px;height: 44px;">
+                    <optgroup label="This is a group">
+                        <option value="12" selected="">This is item 1</option>
+                        <option value="13">This is item 2</option>
+                        <option value="14">This is item 3</option>
+                    </optgroup>
+                </select></div>
+            <div class="col-xl-4 d-xl-flex justify-content-xl-start"><a class="btn btn-primary shadow" role="button" href="signup.html" style="border-style: none;background: var(--bs-orange);font-family: 'Be Vietnam Pro', sans-serif;">Buscar</a></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row" style="margin-bottom: 100px;">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row" style="margin-bottom: 10px;">
+                            <div class="col-xl-3"><img class="d-lg-flex" style="border-radius: 20%;width: 70px;height: 70px;" src="assets/img/products/1.jpg"></div>
+                            <div class="col d-flex d-xl-flex flex-column align-content-start justify-content-xl-center align-items-xl-start">
+                                <h4 class="d-xl-flex" style="font-family: Amaranth, sans-serif;text-align: left;">Nombre del restaurante</h4><span class="badge" style="background: var(--bs-orange);">Categoría</span>
+                            </div>
+                        </div>
+                        <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                        <p class="card-text" style="font-style: italic;">Dirección del restaurante</p>
+                        <div class="row">
+                            <div class="col d-xl-flex justify-content-center justify-content-xl-center"><button class="btn btn-primary d-xl-flex" type="button" style="border-style: none;background: var(--bs-black);">Visitar restaurante</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row" style="margin-bottom: 10px;">
+                            <div class="col-xl-3"><img class="d-lg-flex" style="border-radius: 20%;width: 70px;height: 70px;" src="assets/img/products/1.jpg"></div>
+                            <div class="col d-flex d-xl-flex flex-column align-content-start justify-content-xl-center align-items-xl-start">
+                                <h4 class="d-xl-flex" style="font-family: Amaranth, sans-serif;text-align: left;">Nombre del restaurante</h4><span class="badge" style="background: var(--bs-orange);">Categoría</span>
+                            </div>
+                        </div>
+                        <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                        <p class="card-text" style="font-style: italic;">Dirección del restaurante</p>
+                        <div class="row">
+                            <div class="col d-xl-flex justify-content-center justify-content-xl-center"><button class="btn btn-primary d-xl-flex" type="button" style="border-style: none;background: var(--bs-black);">Visitar restaurante</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row" style="margin-bottom: 10px;">
+                            <div class="col-xl-3"><img class="d-lg-flex" style="border-radius: 20%;width: 70px;height: 70px;" src="assets/img/products/1.jpg"></div>
+                            <div class="col d-flex d-xl-flex flex-column align-content-start justify-content-xl-center align-items-xl-start">
+                                <h4 class="d-xl-flex" style="font-family: Amaranth, sans-serif;text-align: left;">Nombre del restaurante</h4><span class="badge" style="background: var(--bs-orange);">Categoría</span>
+                            </div>
+                        </div>
+                        <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                        <p class="card-text" style="font-style: italic;">Dirección del restaurante</p>
+                        <div class="row">
+                            <div class="col d-xl-flex justify-content-center justify-content-xl-center"><button class="btn btn-primary d-xl-flex" type="button" style="border-style: none;background: var(--bs-black);">Visitar restaurante</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 100px;">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row" style="margin-bottom: 10px;">
+                            <div class="col-xl-3"><img class="d-lg-flex" style="border-radius: 20%;width: 70px;height: 70px;" src="assets/img/products/1.jpg"></div>
+                            <div class="col d-flex d-xl-flex flex-column align-content-start justify-content-xl-center align-items-xl-start">
+                                <h4 class="d-xl-flex" style="font-family: Amaranth, sans-serif;text-align: left;">Nombre del restaurante</h4><span class="badge" style="background: var(--bs-orange);">Categoría</span>
+                            </div>
+                        </div>
+                        <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                        <p class="card-text" style="font-style: italic;">Dirección del restaurante</p>
+                        <div class="row">
+                            <div class="col d-xl-flex justify-content-center justify-content-xl-center"><button class="btn btn-primary d-xl-flex" type="button" style="border-style: none;background: var(--bs-black);">Visitar restaurante</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row" style="margin-bottom: 10px;">
+                            <div class="col-xl-3"><img class="d-lg-flex" style="border-radius: 20%;width: 70px;height: 70px;" src="assets/img/products/1.jpg"></div>
+                            <div class="col d-flex d-xl-flex flex-column align-content-start justify-content-xl-center align-items-xl-start">
+                                <h4 class="d-xl-flex" style="font-family: Amaranth, sans-serif;text-align: left;">Nombre del restaurante</h4><span class="badge" style="background: var(--bs-orange);">Categoría</span>
+                            </div>
+                        </div>
+                        <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                        <p class="card-text" style="font-style: italic;">Dirección del restaurante</p>
+                        <div class="row">
+                            <div class="col d-xl-flex justify-content-center justify-content-xl-center"><button class="btn btn-primary d-xl-flex" type="button" style="border-style: none;background: var(--bs-black);">Visitar restaurante</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row" style="margin-bottom: 10px;">
+                            <div class="col-xl-3"><img class="d-lg-flex" style="border-radius: 20%;width: 70px;height: 70px;" src="assets/img/products/1.jpg"></div>
+                            <div class="col d-flex d-xl-flex flex-column align-content-start justify-content-xl-center align-items-xl-start">
+                                <h4 class="d-xl-flex" style="font-family: Amaranth, sans-serif;text-align: left;">Nombre del restaurante</h4><span class="badge" style="background: var(--bs-orange);">Categoría</span>
+                            </div>
+                        </div>
+                        <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                        <p class="card-text" style="font-style: italic;">Dirección del restaurante</p>
+                        <div class="row">
+                            <div class="col d-xl-flex justify-content-center justify-content-xl-center"><button class="btn btn-primary d-xl-flex" type="button" style="border-style: none;background: var(--bs-black);">Visitar restaurante</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

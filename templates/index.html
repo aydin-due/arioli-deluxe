@@ -5,20 +5,31 @@
 {% block title %}Inicio{% endblock %}
 
 {% block content %}
-    <header class="bg-primary-gradient" style="background: var(--bs-light);">
+    <header class="bg-primary-gradient" style="background: transparent;">
         <div class="container pt-4 pt-xl-5">
             <div class="row pt-5" style="--bs-light: #f5f6f8;--bs-light-rgb: 245,246,248;--bs-primary: rgb(255,173,5);--bs-primary-rgb: 255,173,5;--bs-secondary: rgb(91,140,23);--bs-secondary-rgb: 91,140,23;--bs-dark: rgb(116,117,114);--bs-dark-rgb: 116,117,114;--bs-body-color: rgb(33,2,3);--bs-body-bg: #fff;">
-                <div class="col-md-8 col-xl-6 text-center text-md-start mx-auto">
+                <div class="col-md-8 col-xl-8 text-center text-md-start mx-auto" style="margin-bottom: 50px;">
                     <div class="text-center">
-                        <h1 class="fw-bold" style="font-family: Carattere, serif;--bs-light: #f5f6f8;--bs-light-rgb: 245,246,248;--bs-primary: rgb(255,173,5);--bs-primary-rgb: 255,173,5;color: var(--bs-body-color);">Shalowm Healthy Desserts</h1>
-                        <p style="font-family: 'Be Vietnam Pro', sans-serif;color: var(--bs-dark);">Repostería casera, saludable y vegana.<br>Alternativas sin azúcar, gluten ni grasas trans.</p>
+                        <h1 class="fw-bold" style="font-family: 'Abril Fatface', serif;--bs-light: #f5f6f8;--bs-light-rgb: 245,246,248;--bs-primary: rgb(255,173,5);--bs-primary-rgb: 255,173,5;color: var(--bs-white);margin-bottom: 40px;">Ene</h1>
+                        <h4 style="color: var(--bs-orange);font-family: Amaranth, sans-serif;">¿Eres un restaurante?</h4>
+                        <p style="font-family: 'Be Vietnam Pro', sans-serif;color: var(--bs-gray-200);margin-bottom: 20px;"><a href="#" style="text-underline-offset: 5px;text-decoration-color: var(--bs-orange);color: var(--bs-white);">Registra</a>&nbsp;tu negocio para comenzar a implementar la funcionalidad de ordenar desde la mesa, sin necesidad de meseros.</p>
+                        <h4 style="color: var(--bs-orange);font-family: Amaranth, sans-serif;">¿Eres un cliente?</h4>
+                        <p style="font-family: 'Be Vietnam Pro', sans-serif;color: var(--bs-gray-200);"><a href="#" style="text-underline-offset: 5px;text-decoration-color: var(--bs-orange);color: var(--bs-white);">Inicia sesión</a>&nbsp;para mantener un historial de tus órdenes, o <a href="#" style="text-underline-offset: 5px;text-decoration-color: var(--bs-orange);color: var(--bs-white);">realiza la orden</a>&nbsp;del restaurante en el que te encuentras.</p>
                     </div>
                 </div>
                 <div class="col-12 col-lg-10 mx-auto">
-                    <div class="position-relative" style="display: flex;flex-wrap: wrap;justify-content: flex-end;">
-                        <div style="position: relative;flex: 0 0 45%;transform: translate3d(-15%, 35%, 0);"><img class="img-fluid" data-bss-parallax="" data-bss-parallax-speed="0.8" src="https://images.pexels.com/photos/4110538/pexels-photo-4110538.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=2"></div>
-                        <div style="position: relative;flex: 0 0 45%;transform: translate3d(-5%, 20%, 0);"><img class="img-fluid" data-bss-parallax="" data-bss-parallax-speed="0.4" src="https://images.pexels.com/photos/4110541/pexels-photo-4110541.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=2"></div>
-                        <div style="position: relative;flex: 0 0 60%;transform: translate3d(0, 0%, 0);"><img class="img-fluid" data-bss-parallax="" data-bss-parallax-speed="0.25" src="https://images.pexels.com/photos/45202/brownie-dessert-cake-sweet-45202.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=2"></div>
+                    <div class="carousel slide" data-bs-ride="false" id="carousel-1">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active" style="height: 500px;"><img class="w-100 d-block" src="https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=2" alt="Slide Image"></div>
+                            <div class="carousel-item" style="height: 500px;"><img class="w-100 d-block" src="https://images.pexels.com/photos/853151/pexels-photo-853151.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=2" alt="Slide Image"></div>
+                            <div class="carousel-item" style="height: 500px;"><img class="w-100 d-block" src="https://images.pexels.com/photos/5410084/pexels-photo-5410084.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Slide Image"></div>
+                        </div>
+                        <div><a class="carousel-control-prev" href="#carousel-1" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span><span class="visually-hidden">Previous</span></a><a class="carousel-control-next" href="#carousel-1" role="button" data-bs-slide="next"><span class="carousel-control-next-icon"></span><span class="visually-hidden">Next</span></a></div>
+                        <ol class="carousel-indicators">
+                            <li data-bs-target="#carousel-1" data-bs-slide-to="0" class="active"></li>
+                            <li data-bs-target="#carousel-1" data-bs-slide-to="1"></li>
+                            <li data-bs-target="#carousel-1" data-bs-slide-to="2"></li>
+                        </ol>
                     </div>
                 </div>
             </div>
