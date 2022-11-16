@@ -1,3 +1,3 @@
-# arioli-pro
+# arioli-deluxe
 
 proyectito pal rome
