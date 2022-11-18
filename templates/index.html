@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% set active_page = "index" %}
-{% set admin = admin %}
+{% set restaurant = restaurant %}
 
 {% block title %}Inicio{% endblock %}
 
@@ -12,9 +12,9 @@
                     <div class="text-center">
                         <h1 class="fw-bold" style="font-family: 'Abril Fatface', serif;--bs-light: #f5f6f8;--bs-light-rgb: 245,246,248;--bs-primary: rgb(255,173,5);--bs-primary-rgb: 255,173,5;color: var(--bs-white);margin-bottom: 40px;">Ene</h1>
                         <h4 style="color: var(--bs-orange);font-family: Amaranth, sans-serif;">¿Eres un restaurante?</h4>
-                        <p style="font-family: 'Be Vietnam Pro', sans-serif;color: var(--bs-gray-200);margin-bottom: 20px;"><a href="#" style="text-underline-offset: 5px;text-decoration-color: var(--bs-orange);color: var(--bs-white);">Registra</a>&nbsp;tu negocio para comenzar a implementar la funcionalidad de ordenar desde la mesa, sin necesidad de meseros.</p>
+                        <p style="font-family: 'Be Vietnam Pro', sans-serif;color: var(--bs-gray-200);margin-bottom: 20px;"><a href="/register-restaurant" style="text-underline-offset: 5px;text-decoration-color: var(--bs-orange);color: var(--bs-white);">Registra</a>&nbsp;tu negocio para comenzar a implementar la funcionalidad de ordenar desde la mesa, sin necesidad de meseros.</p>
                         <h4 style="color: var(--bs-orange);font-family: Amaranth, sans-serif;">¿Eres un cliente?</h4>
-                        <p style="font-family: 'Be Vietnam Pro', sans-serif;color: var(--bs-gray-200);"><a href="#" style="text-underline-offset: 5px;text-decoration-color: var(--bs-orange);color: var(--bs-white);">Inicia sesión</a>&nbsp;para mantener un historial de tus órdenes, o <a href="#" style="text-underline-offset: 5px;text-decoration-color: var(--bs-orange);color: var(--bs-white);">realiza la orden</a>&nbsp;del restaurante en el que te encuentras.</p>
+                        <p style="font-family: 'Be Vietnam Pro', sans-serif;color: var(--bs-gray-200);"><a href="/account" style="text-underline-offset: 5px;text-decoration-color: var(--bs-orange);color: var(--bs-white);">Inicia sesión</a>&nbsp;para mantener un historial de tus órdenes, o <a href="/restaurants" style="text-underline-offset: 5px;text-decoration-color: var(--bs-orange);color: var(--bs-white);">realiza la orden</a>&nbsp;del restaurante en el que te encuentras.</p>
                     </div>
                 </div>
                 <div class="col-12 col-lg-10 mx-auto">

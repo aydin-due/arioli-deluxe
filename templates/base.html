@@ -12,9 +12,7 @@
     --bs-dark: rgb(116, 117, 114);
     --bs-dark-rgb: 116, 117, 114;
     font-family: Inter, sans-serif;
-    background: linear-gradient(black, white),
-      url('https://cdn.bootstrapstudio.io/placeholders/1400x800.png'),
-      var(--bs-body-color);
+    background: var(--bs-black);
   "
 >
   <head>
@@ -85,42 +83,52 @@
           >
             <li class="nav-item">
               <a
-                class="nav-link {% if active_page == 'index' %}active{% endif %}"
+                class="nav-link"
                 href="/"
-                style="color: var(--bs-white)"
+                {% if active_page == 'index' %} 
+                style="color: var(--bs-white) "
+                {% else %}
+                style="color: var(--bs-gray-400) "
+                {% endif %}"
                 >Inicio</a
               >
             </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                href="restaurants.html"
-                style="
-                  --bs-light: #f5f6f8;
-                  --bs-light-rgb: 245, 246, 248;
-                  color: var(--bs-gray-400);
-                "
-                >Restaurantes</a
-              >
-            </li>
+            {% if restaurant %}
             <li class="nav-item">
               <a
                 class="nav-link"
                 href="products-admin.html"
-                style="
-                  --bs-light: #f5f6f8;
-                  --bs-light-rgb: 245, 246, 248;
-                  text-align: center;
-                  color: var(--bs-gray-400);
-                "
+                {% if active_page == 'products' %} 
+                style="color: var(--bs-white) "
+                {% else %}
+                style="color: var(--bs-gray-400) "
+                {% endif %}"
                 >Productos</a
               >
             </li>
+            {% else %}
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="restaurants.html"
+                {% if active_page == 'restaurants' %} 
+                style="color: var(--bs-white) "
+                {% else %}
+                style="color: var(--bs-gray-400) "
+                {% endif %}"
+                >Restaurantes</a
+              >
+            </li>
+            {% endif %}
             <li class="nav-item">
               <a
                 class="nav-link"
                 href="cart.html"
-                style="color: var(--bs-gray-400)"
+                {% if active_page == 'cart' %} 
+                style="color: var(--bs-white) "
+                {% else %}
+                style="color: var(--bs-gray-400) "
+                {% endif %}"
                 >Carrito</a
               >
             </li>
@@ -128,7 +136,11 @@
               <a
                 class="nav-link"
                 href="orders.html"
-                style="color: var(--bs-gray-400)"
+                {% if active_page == 'orders' %} 
+                style="color: var(--bs-white) "
+                {% else %}
+                style="color: var(--bs-gray-400) "
+                {% endif %}"
                 >Pedidos</a
               >
             </li>

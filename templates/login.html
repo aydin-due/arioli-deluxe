@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% set active_page = "index" %}
-{% set admin = admin %}
+{% set restaurant = restaurant %}
 
 {% block title %}Inicio{% endblock %}
 
@@ -19,8 +19,17 @@
                         <div class="card-body text-center d-flex flex-column align-items-center" style="padding-top: 30px;">
                             <form method="post">
                                 <div class="mb-3"></div>
-                                <div class="mb-3"><label class="form-label text-body" style="font-family: 'Be Vietnam Pro', sans-serif;">Correo electrónico</label><input class="form-control" type="password" name="password" placeholder="Correo electrónico" style="margin-bottom: 20px;font-family: 'Be Vietnam Pro', sans-serif;"><label class="form-label text-body" style="font-family: 'Be Vietnam Pro', sans-serif;">Contraseña</label><input class="form-control" type="password" name="password" placeholder="Contraseña" style="margin-bottom: 30px;font-family: 'Be Vietnam Pro', sans-serif;"></div>
+                                <div class="mb-3">
+                                    <label class="form-label text-body" style="font-family: 'Be Vietnam Pro', sans-serif;">Correo electrónico</label>
+                                    <input class="form-control" type="text" name="email" placeholder="Correo electrónico" style="margin-bottom: 20px;font-family: 'Be Vietnam Pro', sans-serif;">
+                                    <label class="form-label text-body" style="font-family: 'Be Vietnam Pro', sans-serif;">Contraseña</label>
+                                    <input class="form-control" type="password" name="password" placeholder="Contraseña" style="margin-bottom: 30px;font-family: 'Be Vietnam Pro', sans-serif;"></div>
                                 <div class="mb-3"><button class="btn btn-primary shadow d-block w-100" type="submit" style="background: var(--bs-orange);border-style: none;font-family: 'Be Vietnam Pro', sans-serif;">Iniciar sesión</button></div>
+                                {% if error %}
+                                <div class="mb-3">
+                                    <p class="fw-bold text-success mb-2", style="color: #c1292e !important;font-family: 'Be Vietnam Pro', sans-serif;"">{{ error }}</p>
+                                </div>
+                                {% endif %}
                             </form>
                         </div>
                     </div>

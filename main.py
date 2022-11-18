@@ -11,6 +11,7 @@ from models.recipe import Recipe
 from models.product import Product
 from models.cart import Cart
 from models.order import Order
+from models.restaurant import Restaurant
 
 db = db.dbConnection()
 app = Flask(__name__)
@@ -21,95 +22,128 @@ app.config['UPLOAD_FOLDER'] = 'static/img/products'
 
 @app.route('/')
 def home():
-    return render_template('index.html', admin=is_admin())
+    return render_template('index.html', restaurant=is_restaurant())
 
 
 # USER 
 
-def is_admin():
-    print(session)
-    if 'email' in session:
-        users = db['users']
-        user = users.find_one({"email": session['email']})
-        return user['admin']
-    else:
-        return False
+def is_restaurant():
+    print(session.get('restaurant', False))
+    return session.get('restaurant', False)
 
 @app.route('/account')
 def account():
     if 'username' in session:
         user = session['username']
-        return render_template('account.html', user=user, admin=is_admin())
-    return render_template('account.html', admin=is_admin())
+        return render_template('account.html', user=user, restaurant=is_restaurant())
+    return render_template('account.html', restaurant=is_restaurant())
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         users = db['users']
+        restaurants = db['restaurants']
         email = request.form['email']
         password = request.form['password']
-
-        if email and password:
-            user = users.find_one({"email": email, "password": password})
-            if user:
-                session['username'] = user['username']
-                session['email'] = user['email']
-                return redirect(url_for('account'))
-            return render_template('login.html', error='El correo o la contraseña son incorrectos', admin=is_admin())
-        else:
-            return render_template('login.html', error='Por favor llene todos los campos', admin=is_admin())
+        user = users.find_one({"email": email, "password": password})
+        restaurant = restaurants.find_one({"email": email, "password": password})
+        if user:
+            session['username'] = user['username']
+            session['email'] = user['email']
+            session['restaurant'] = False
+            return redirect(url_for('account'))
+        elif restaurant:
+            session['username'] = restaurant['username']
+            session['email'] = restaurant['email']
+            session['restaurant'] = True
+            return redirect(url_for('account'))
+        return render_template('login.html', error='El correo o la contraseña son incorrectos', restaurant=is_restaurant())
     else:
-        return render_template('login.html', admin=is_admin())
+        return render_template('login.html', restaurant=is_restaurant())
 
-@app.route('/register', methods=['GET','POST'])
-def register():
+@app.route('/register-user', methods=['GET','POST'])
+def register_user():
     if request.method == 'POST':
         users = db['users']
         username = request.form['username']
         email = request.form['email']
-        phone = request.form['phone']
         password = request.form['password']
 
-        if username and email and password and phone:
-            user = User(username, email, password, phone)
+        if username and email and password:
+            user = User(username, email, password)
             if users.find_one({'email': email}):
-                return render_template('register.html', error='El correo ya está en uso', admin=is_admin())
+                return render_template('register-user.html', error='El correo ya está en uso', restaurant=is_restaurant())
             users.insert_one(user.toBDCollection())
             session['username'] = username
             session['email'] = email
+            session['restaurant'] = False
             return redirect(url_for('account'))
         else:
-            return render_template('register.html', error='Por favor llene todos los campos', admin=is_admin())
+            return render_template('register-user.html', error='Por favor llene todos los campos', restaurant=is_restaurant())
     else:
-        return render_template('register.html', admin=is_admin())
+        return render_template('register-user.html', restaurant=is_restaurant())
+
+@app.route('/register-restaurant', methods=['GET','POST'])
+def register_restaurant():
+    if request.method == 'POST':
+        email = request.form['email']
+        restaurant = set_restaurant(request)
+        restaurants = db['restaurants']
+        users = db['users']
+        username = request.form['username']
+        if restaurants.find_one({'email': restaurant}) or users.find_one({'email': email}):
+            return render_template('register-restaurant.html', error='El correo ya está en uso', restaurant=is_restaurant())
+        restaurants.insert_one(restaurant.toBDCollection())
+        session['username'] = username
+        session['email'] = email
+        session['restaurant'] = True
+        return redirect(url_for('account'))
+    else:
+        return render_template('register-restaurant.html', restaurant=is_restaurant())
 
 @app.route('/logout') 
 def logout():
     if 'username' in session:
         session.pop('username',None)
         session.pop('email',None)
+        session.pop('restaurant',None)
         return redirect('/')
 
 @app.route('/update-account', methods=['GET', 'POST'])
 def update_account():
-    users = db['users']
-    user = users.find_one({"email": session['email']})
-    if request.method == 'POST':
-        username = request.form['username']
-        email = request.form['email']
-        phone = request.form['phone']
-        password = request.form['password']
-
-        if username and email and password and phone:
-            user = User(username, email, password, phone)
-            users.update_one({'email': session['email']}, {'$set': user.toBDCollection()})
+    if session['restaurant']:
+        restaurants = db['restaurants']
+        restaurant = restaurants.find_one({'email': session['email']})
+        if request.method == 'POST':
+            email = request.form['email']
+            new_restaurant = set_restaurant(request, id_restaurant=restaurant['_id'])
+            users = db['users']
+            username = request.form['username']
+            if restaurants.find_one({'email': email, '_id': {"$ne": restaurant['_id']}}) or users.find_one({'email': email}):
+                return render_template('register-restaurant.html', error='El correo ya está en uso', restaurant=is_restaurant())
             session['username'] = username
             session['email'] = email
+            session['restaurant'] = True
+            restaurants.update_one({'_id': restaurant['_id']}, {'$set': new_restaurant.toBDCollection()})
             return redirect(url_for('account'))
-        else:
-            return render_template('update-account.html', error='Por favor llene todos los campos', admin=is_admin(), user=user)
+        return render_template('update-restaurant.html', restaurant=is_restaurant(), rest=restaurant)
     else:
-        return render_template('update-account.html', admin=is_admin(), user=user)
+        users = db['users']
+        user = users.find_one({'email': session['email']})
+        if request.method == 'POST':
+            username = request.form['username']
+            email = request.form['email']
+            password = request.form['password']
+            new_user = User(username, email, password)
+            restaurants = db['restaurants']
+            if restaurants.find_one({'email': email}) or users.find_one({'email': email, '_id': {"$ne": user['_id']}}):
+                return render_template('update-user.html', error='El correo ya está en uso', restaurant=is_restaurant(), user=user)
+            users.update_one({'email': session['email']}, {'$set': new_user.toBDCollection()})
+            session['username'] = username
+            session['email'] = email
+            session['restaurant'] = False
+            return redirect(url_for('account'))
+        return render_template('update-user.html', restaurant=is_restaurant(), user=user)
 
 
 # PRODUCT
@@ -319,6 +353,31 @@ def get_id(collection):
     if collection.count_documents({}) == 0:
         return 0
     return collection.find().sort('_id', -1).limit(1)[0]['_id'] + 1
+
+def set_restaurant(request, *args, **kwargs):
+    restaurants = db['restaurants']
+    username = request.form['username']
+    email = request.form['email']
+    password = request.form['password']
+    description = request.form['description']
+    address = request.form['address']
+    category = request.form['category']
+
+    if 'id_restaurant' in kwargs:
+        id_restaurant = kwargs['id_restaurant']
+    else:
+        id_restaurant = get_id(restaurants)
+
+    filename = str(id_restaurant) + '.jpg'
+
+    if 'logo' in request.files:
+        if request.files['logo'].filename != '':
+            logo = request.files['logo'].read()
+            fs = gridfs.GridFS(db)
+            fs.put(logo, filename=filename)
+
+    restaurant = Restaurant(id_restaurant, username, email, password, description, address, category, filename)
+    return restaurant
 
 def set_product(request, *args, **kwargs):
     products = db['products']

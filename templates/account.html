@@ -1,16 +1,15 @@
 {% extends 'base.html' %}
-{% set active_page = "index" %}
-{% set admin = admin %}
+{% set restaurant = restaurant %}
 
-{% block title %}Inicio{% endblock %}
+{% block title %}Restaurant{% endblock %}
 
 {% block content %}
-    <section class="py-5" style="--bs-primary: rgb(255,173,5);--bs-primary-rgb: 255,173,5;--bs-secondary: rgb(91,140,23);--bs-secondary-rgb: 91,140,23;--bs-light: #f5f6f8;--bs-light-rgb: 245,246,248;--bs-dark: rgb(116,117,114);--bs-dark-rgb: 116,117,114;--bs-body-color: rgb(33,2,3);--bs-body-bg: #fff;background: transparent;">
+    <section class="py-5" style="--bs-primary: rgb(255,173,5);--bs-primary-rgb: 255,173,5;--bs-secondary: rgb(91,140,23);--bs-secondary-rgb: 91,140,23;--bs-light: #f5f6f8;--bs-light-rgb: 245,246,248;--bs-dark: rgb(116,117,114);--bs-dark-rgb: 116,117,114;--bs-body-color: rgb(33,2,3);--bs-body-bg: #fff;">
         <div class="container py-5" style="--bs-primary: rgb(255,173,5);--bs-primary-rgb: 255,173,5;--bs-secondary: rgb(91,140,23);--bs-secondary-rgb: 91,140,23;--bs-light: #f5f6f8;--bs-light-rgb: 245,246,248;--bs-dark: rgb(116,117,114);--bs-dark-rgb: 116,117,114;--bs-body-color: rgb(33,2,3);--bs-body-bg: #fff;font-family: Amaranth, sans-serif;">
             <div class="row mb-4 mb-lg-5">
                 <div class="col-md-8 col-xl-6 text-center mx-auto">
                     <p class="fw-bold text-success mb-2"></p>
-                    <h1 class="fw-bold" style="font-family: Amaranth, sans-serif;">Mi cuenta</h1>
+                    <h1 class="fw-bold" style="font-family: Amaranth, sans-serif;color: var(--bs-orange);">Mi cuenta</h1>
                 </div>
             </div>
             <div class="row d-flex justify-content-center">
@@ -18,10 +17,16 @@
                     <div class="card">
                         <div class="card-body text-center d-flex flex-column align-items-center" style="padding-top: 30px;">
                             <form method="post">
-                                <div class="mb-3"></div>
-                                <div class="mb-3"></div>
                                 <div class="mb-3">
-                                    <p style="font-size: 20px;font-family: 'Be Vietnam Pro', sans-serif;color: var(--bs-black);">Bienvenido</p><a class="btn btn-primary shadow d-block w-100" role="button" href="login.html" style="background: var(--bs-orange);border-style: none;font-family: 'Be Vietnam Pro', sans-serif;margin-bottom: 20px;">Iniciar sesión</a><a class="btn btn-primary shadow d-block w-100" role="button" href="register-user.html" style="background: var(--bs-orange);border-style: none;font-family: 'Be Vietnam Pro', sans-serif;margin-bottom: 20px;">Registrarme</a><a class="btn btn-primary shadow d-block w-100" role="button" href="register-user.html" style="background: var(--bs-orange);border-style: none;font-family: 'Be Vietnam Pro', sans-serif;margin-bottom: 20px;">Modificar cuenta</a><a class="btn btn-primary shadow d-block w-100" role="button" href="#" style="background: var(--bs-orange);border-style: none;font-family: 'Be Vietnam Pro', sans-serif;">Cerrar sesión</a>
+                                    {% if user %}
+                                    <p style="font-size: 20px;font-family: 'Be Vietnam Pro', sans-serif;color: var(--bs-black);">Bienvenido, {{ user }}</p>
+                                    <a class="btn btn-primary shadow d-block w-100" role="button" href="/update-account" style="background: var(--bs-orange);border-style: none;font-family: 'Be Vietnam Pro', sans-serif;margin-bottom: 20px;">Modificar cuenta</a>
+                                    <a class="btn btn-primary shadow d-block w-100" role="button" href="/logout" style="background: var(--bs-orange);border-style: none;font-family: 'Be Vietnam Pro', sans-serif;">Cerrar sesión</a>
+                                    {% else %}
+                                    <p style="font-size: 20px;font-family: 'Be Vietnam Pro', sans-serif;color: var(--bs-black);">Bienvenido</p>
+                                    <a class="btn btn-primary shadow d-block w-100" role="button" href="/login" style="background: var(--bs-orange);border-style: none;font-family: 'Be Vietnam Pro', sans-serif;margin-bottom: 20px;">Iniciar sesión</a>
+                                    <a class="btn btn-primary shadow d-block w-100" role="button" href="/register-user" style="background: var(--bs-orange);border-style: none;font-family: 'Be Vietnam Pro', sans-serif;margin-bottom: 20px;">Registrarme</a>
+                                    {% endif %}
                                 </div>
                             </form>
                         </div>
