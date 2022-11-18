@@ -49,7 +49,7 @@
                         <p class="card-text" style="font-style: italic;">{{ restaurant.address }}</p>
                         <div class="row">
                             <div class="col d-xl-flex justify-content-center justify-content-xl-center">
-                                <button class="btn btn-primary d-xl-flex" type="button" style="border-style: none;background: var(--bs-black);font-family: 'Be Vietnam Pro', sans-serif;">Visitar restaurante</button>
+                                <a class="btn btn-primary d-xl-flex" href="{{url_for('products', id_restaurant=restaurant._id)}}" role="button" style="border-style: none;background: var(--bs-black);font-family: 'Be Vietnam Pro', sans-serif;">Visitar restaurante</a>
                             </div>
                         </div>
                     </div>

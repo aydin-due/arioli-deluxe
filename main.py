@@ -52,7 +52,7 @@ def login():
             session['restaurant'] = False
             return redirect(url_for('account'))
         elif restaurant:
-            session['username'] = restaurant['username']
+            session['username'] = restaurant['name']
             session['email'] = restaurant['email']
             session['restaurant'] = True
             return redirect(url_for('account'))
@@ -174,17 +174,25 @@ def restaurants():
 
 @app.route('/products', methods=["GET", "POST"])
 def products():
-    error = request.args.get('error')
-    products = list(db['products'].find())
-    if request.method == 'POST':
-        products = list(db['products'].find({"name": {'$regex' : request.form['search'], '$options' : 'i'}}))
-    if not products:
-        error = 'No se encontraron productos ;('
-    if is_admin():
-        return render_template('products-admin.html', admin=is_admin(), products=products, error=error)
-    if 'username' in session:
-        return render_template('products.html', admin=is_admin(), products=products, error=error, user=session['username'])
-    return render_template('products.html', admin=is_admin(), products=products, error=error)
+    restaurants = db['restaurants']
+    id_restaurant = request.args.get('id_restaurant')
+    if id_restaurant:
+        restaurant = restaurants.find_one({'_id': int(id_restaurant)})
+    else:
+        restaurant = restaurants.find_one({'email': session['email']})
+    products = restaurant.get('products', [])
+    if is_restaurant():
+        return render_template('products-admin.html', restaurant=is_restaurant(), rest=restaurant, products=products)
+
+    # if request.method == 'POST':
+    #     products = list(db['products'].find({"name": {'$regex' : request.form['search'], '$options' : 'i'}}))
+    # if not products:
+    #     error = 'No se encontraron productos ;('
+    # if is_admin():
+    #     return render_template('products-admin.html', admin=is_admin(), products=products, error=error)
+    # if 'username' in session:
+    #     return render_template('products.html', admin=is_admin(), products=products, error=error, user=session['username'])
+    return render_template('products.html', restaurant=is_restaurant(), rest=restaurant, products=products)
 
 @app.route('/add-product', methods=['GET', 'POST'])
 def add_product():
