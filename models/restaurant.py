@@ -1,7 +1,7 @@
 class Restaurant:
-    def __init__(self, id, username, email, password, description, address, category, logo):
+    def __init__(self, id, name, email, password, description, address, category, logo):
         self.id = id
-        self.username = username
+        self.name = name
         self.email = email
         self.password = password
         self.description = description
@@ -12,7 +12,7 @@ class Restaurant:
     def toBDCollection(self):
         return {
             "_id": self.id,
-            "username": self.username,
+            "name": self.name,
             "email": self.email,
             "password": self.password,
             "description": self.description,

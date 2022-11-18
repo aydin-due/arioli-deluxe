@@ -28,7 +28,6 @@ def home():
 # USER 
 
 def is_restaurant():
-    print(session.get('restaurant', False))
     return session.get('restaurant', False)
 
 @app.route('/account')
@@ -91,7 +90,7 @@ def register_restaurant():
         restaurants = db['restaurants']
         users = db['users']
         username = request.form['username']
-        if restaurants.find_one({'email': restaurant}) or users.find_one({'email': email}):
+        if restaurants.find_one({'email': email}) or users.find_one({'email': email}):
             return render_template('register-restaurant.html', error='El correo ya está en uso', restaurant=is_restaurant())
         restaurants.insert_one(restaurant.toBDCollection())
         session['username'] = username
@@ -145,6 +144,31 @@ def update_account():
             return redirect(url_for('account'))
         return render_template('update-user.html', restaurant=is_restaurant(), user=user)
 
+
+# RESTAURANT
+
+@app.route('/delete-restaurant')
+def delete_restaurant():
+    restaurants = db['restaurants']
+    restaurants.delete_one({'email': session['email']})
+    session.pop('username',None)
+    session.pop('email',None)
+    session.pop('restaurant',None)
+    return redirect('/')
+
+@app.route('/restaurants', methods=['GET', 'POST'])
+def restaurants():
+    restaurants = db['restaurants']
+    categories = restaurants.distinct('category')
+    if request.method == 'POST':
+        restaurant = request.form['search']
+        category = request.form['category']
+        if category == 'all':
+            restaurants = restaurants.find({'name': {'$regex': restaurant, '$options': 'i'}})
+        else:
+            restaurants = restaurants.find({'name': {'$regex': restaurant, '$options': 'i'}, 'category': category})
+        return render_template('restaurants.html', restaurants=restaurants, restaurant=is_restaurant(), categories=categories)
+    return render_template('restaurants.html', restaurants=restaurants.find({}), restaurant=is_restaurant(), categories=categories)
 
 # PRODUCT
 
@@ -368,7 +392,7 @@ def set_restaurant(request, *args, **kwargs):
     else:
         id_restaurant = get_id(restaurants)
 
-    filename = str(id_restaurant) + '.jpg'
+    filename = 'restaurant' + str(id_restaurant) + '.jpg'
 
     if 'logo' in request.files:
         if request.files['logo'].filename != '':

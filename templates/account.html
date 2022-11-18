@@ -21,7 +21,10 @@
                                     {% if user %}
                                     <p style="font-size: 20px;font-family: 'Be Vietnam Pro', sans-serif;color: var(--bs-black);">Bienvenido, {{ user }}</p>
                                     <a class="btn btn-primary shadow d-block w-100" role="button" href="/update-account" style="background: var(--bs-orange);border-style: none;font-family: 'Be Vietnam Pro', sans-serif;margin-bottom: 20px;">Modificar cuenta</a>
-                                    <a class="btn btn-primary shadow d-block w-100" role="button" href="/logout" style="background: var(--bs-orange);border-style: none;font-family: 'Be Vietnam Pro', sans-serif;">Cerrar sesión</a>
+                                    <a class="btn btn-primary shadow d-block w-100" role="button" href="/logout" style="background: var(--bs-orange);border-style: none;font-family: 'Be Vietnam Pro', sans-serif;margin-bottom: 20px;">Cerrar sesión</a>
+                                        {% if restaurant %}
+                                        <a class="btn btn-primary shadow d-block w-100" role="button" href="/delete-restaurant" style="background: var(--bs-orange);border-style: none;font-family: 'Be Vietnam Pro', sans-serif;">Eliminar restaurante</a>
+                                        {% endif %}
                                     {% else %}
                                     <p style="font-size: 20px;font-family: 'Be Vietnam Pro', sans-serif;color: var(--bs-black);">Bienvenido</p>
                                     <a class="btn btn-primary shadow d-block w-100" role="button" href="/login" style="background: var(--bs-orange);border-style: none;font-family: 'Be Vietnam Pro', sans-serif;margin-bottom: 20px;">Iniciar sesión</a>
