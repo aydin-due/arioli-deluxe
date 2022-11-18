@@ -220,24 +220,13 @@ def delete_product(id_product):
     product = products.find_one({'_id': id_product})
     if product:
         products.delete_one({'_id': id_product})
-        return redirect(url_for('products_admin', error='Producto eliminado correctamente :^)'))
-    return redirect(url_for('products_admin', error='El producto no existe'))
-
-
-# RECIPE
-
-@app.route('/recipe/<int:id_product>', methods=['GET', 'POST'])
-def recipe(id_product):
-    products = db['products']
-    recipes = db['recipes']
-    product = products.find_one({"_id": id_product})
-    recipe = recipes.find_one({"_id": product['recipe']})
-    if request.method == 'POST':
-        portions = request.form['portions']
-        for ingredient in recipe['ingredients']:
-            ingredient['quantity'] = float(ingredient['quantity']) * float(portions) / float(recipe['portions'])
-        return render_template('recipe.html', admin=is_admin(), product=product, recipe=recipe, portions=portions)
-    return render_template('recipe.html', admin=is_admin(), product=product, recipe=recipe, portions=recipe['portions'])
+        restaurants = db['restaurants']
+        restaurant = restaurants.find_one({'email': session['email']})
+        products = restaurant.get('products', [])
+        products.remove(id_product)
+        restaurants.update_one({'email': session['email']}, {'$set': {'products': products}})
+        return redirect(url_for('products', error='Producto eliminado correctamente :^)'))
+    return redirect(url_for('products', error='El producto no existe'))
 
 
 # CART
