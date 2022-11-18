@@ -7,11 +7,11 @@ import gridfs
 import secrets
 import datetime
 from models.user import User
-from models.recipe import Recipe
 from models.product import Product
 from models.cart import Cart
 from models.order import Order
 from models.restaurant import Restaurant
+from models.recipe import Recipe
 
 db = db.dbConnection()
 app = Flask(__name__)
@@ -180,7 +180,9 @@ def products():
         restaurant = restaurants.find_one({'_id': int(id_restaurant)})
     else:
         restaurant = restaurants.find_one({'email': session['email']})
-    products = restaurant.get('products', [])
+    products_list = restaurant.get('products', [])
+    products = list(db['products'].find({'_id': {'$in': products_list}}))
+    print(products)
     if is_restaurant():
         return render_template('products-admin.html', restaurant=is_restaurant(), rest=restaurant, products=products)
 
@@ -198,12 +200,15 @@ def products():
 def add_product():
     if request.method == 'POST':
         products = db['products']
-        recipes = db['recipes']
-        product, recipe = set_product(request)
+        product = set_product(request)
         products.insert_one(product.toDBCollection())
-        recipes.insert_one(recipe.toDBCollection())
-        return render_template('add-product.html', admin=is_admin(), error='Producto agregado correctamente :^)')
-    return render_template('add-product.html', admin=is_admin())        
+        restaurants = db['restaurants']
+        restaurant = restaurants.find_one({'email': session['email']})
+        products = restaurant.get('products', [])
+        products.append(product.id)
+        restaurants.update_one({'email': session['email']}, {'$set': {'products': products}})
+        return redirect(url_for('products'))
+    return render_template('add-product.html', restaurant=is_restaurant())        
 
 @app.route('/update-product/<int:id_product>', methods=['GET', 'POST'])
 def update_product(id_product):
@@ -413,39 +418,22 @@ def set_restaurant(request, *args, **kwargs):
 
 def set_product(request, *args, **kwargs):
     products = db['products']
-    recipes = db['recipes']
-    ingredients = []
-    for quantity, unit, ingredient in zip(request.form.getlist('quantity'), request.form.getlist('unit'), request.form.getlist('ingredient')):
-        ingredients.append({
-            "quantity": quantity,
-            "unit": unit,
-            "name": ingredient
-        })
 
     if 'id_product' in kwargs:
         id_product = kwargs['id_product']
     else:
         id_product = get_id(products)
 
-    if 'id_recipe' in kwargs:
-        id_recipe = kwargs['id_recipe']
-    else:
-        id_recipe = get_id(recipes)
-
-    steps = request.form['procedure'].split()
-
-    recipe = Recipe(id_recipe, ingredients, steps, request.form['portions'])
-
-    filename = str(id_product) + '.jpg'
+    filename = 'product' + str(id_product) + '.jpg'
 
     if request.files['image'].filename != '':
         image = request.files['image'].read()
         fs = gridfs.GridFS(db)
         fs.put(image, filename=filename)
         
-    product = Product(id_product, request.form['name'], request.form['description'], request.form['price'], filename, id_recipe)
+    product = Product(id_product, request.form['name'], request.form['description'], request.form['price'], filename)
 
-    return [product, recipe]
+    return product
 
 @app.route('/image/<filename>')
 def image(filename):

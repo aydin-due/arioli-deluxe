@@ -12,12 +12,20 @@
             <div class="card"></div>
             <div class="card">
                 <div class="card-body text-center d-flex flex-column justify-content-xl-end align-items-xl-center" style="padding-top: 30px;">
-                    <form class="justify-content-xl-center align-items-xl-center" method="post" style="padding-bottom: 20px;">
+                    <form class="justify-content-xl-center align-items-xl-center" method="post" style="padding-bottom: 20px;" enctype="multipart/form-data">
                         <div class="d-xl-flex justify-content-xl-center" style="padding-right: 50px;padding-left: 50px;">
                             <div class="mb-3">
-                                <h4 style="font-family: Amaranth, sans-serif;margin-bottom: 20px;">Datos del producto</h4><label class="form-label">Nombre del producto</label><input class="form-control" type="password" name="password" placeholder="Nombre" style="margin-bottom: 20px;font-family: 'Be Vietnam Pro', sans-serif;"><label class="form-label">Descripción del producto</label><textarea class="form-control" placeholder="Descripción" style="margin-bottom: 20px;"></textarea><label class="form-label">Precio del producto</label><input class="form-control" type="number" style="margin-bottom: 20px;" placeholder="Precio"><label class="form-label">Imagen del producto</label><input class="form-control" type="file" style="margin-bottom: 30px;">
+                                <h4 style="font-family: Amaranth, sans-serif;margin-bottom: 20px;">Datos del producto</h4>
+                                <label class="form-label">Nombre del producto</label>
+                                <input class="form-control" type="text" name="name" placeholder="Nombre" style="margin-bottom: 20px;font-family: 'Be Vietnam Pro', sans-serif;" required>
+                                <label class="form-label">Descripción del producto</label>
+                                <textarea class="form-control" name="description" placeholder="Descripción" style="margin-bottom: 20px;" required></textarea>
+                                <label class="form-label">Precio del producto</label>
+                                <input class="form-control" type="number" name="price" style="margin-bottom: 20px;" placeholder="Precio" required>
+                                <label class="form-label">Imagen del producto</label>
+                                <input class="form-control" type="file" name="image" accept="image/*" style="margin-bottom: 30px;" required>
                             </div>
-                        </div><button class="btn btn-primary" type="button" style="background: var(--bs-orange);border-style: none;font-family: 'Be Vietnam Pro', sans-serif;">Añadir producto</button>
+                        </div><button class="btn btn-primary" type="submit" style="background: var(--bs-orange);border-style: none;font-family: 'Be Vietnam Pro', sans-serif;">Añadir producto</button>
                     </form>
                 </div>
             </div>

@@ -1,11 +1,10 @@
 class Product:
-    def __init__(self, id, name, description, price, image, recipe):
+    def __init__(self, id, name, description, price, image):
         self.id = id
         self.name = name
         self.description = description
         self.price = price
         self.image = image
-        self.recipe = recipe
     
     def toDBCollection(self):
         return {
@@ -13,8 +12,7 @@ class Product:
             "name": self.name,
             "description": self.description,
             "price": self.price,
-            "image": self.image,
-            "recipe": self.recipe
+            "image": self.image
         }
     
     def updateDBCollection(self):
