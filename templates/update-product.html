@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% set active_page = "index" %}
+{% set restaurant = restaurant %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+    <section class="py-5" style="--bs-primary: rgb(255,173,5);--bs-primary-rgb: 255,173,5;--bs-secondary: rgb(91,140,23);--bs-secondary-rgb: 91,140,23;--bs-light: #f5f6f8;--bs-light-rgb: 245,246,248;--bs-dark: rgb(116,117,114);--bs-dark-rgb: 116,117,114;--bs-body-color: rgb(33,2,3);--bs-body-bg: #fff;background: var(--bs-black);">
+        <h1 style="text-align: center;font-family: Amaranth, sans-serif;color: var(--bs-orange);">Edita el producto</h1>
+        <div class="card"></div>
+        <div class="container py-5" style="width: 450px;">
+            <div class="card"></div>
+            <div class="card">
+                <div class="card-body text-center d-flex flex-column justify-content-xl-end align-items-xl-center" style="padding-top: 30px;">
+                    <form class="justify-content-xl-center align-items-xl-center" method="post"enctype="multipart/form-data" style="padding-bottom: 20px;">
+                        <div class="d-xl-flex justify-content-xl-center" style="padding-right: 50px;padding-left: 50px;">
+                            <div class="mb-3">
+                                <h4 style="font-family: Amaranth, sans-serif;margin-bottom: 20px;">Datos del producto</h4>
+                                <label class="form-label">Nombre del producto</label>
+                                <input class="form-control" type="text" name="name" value="{{product.name}}" placeholder="Nombre" style="margin-bottom: 20px;font-family: 'Be Vietnam Pro', sans-serif;" required>
+                                <label class="form-label">Descripción del producto</label>
+                                <textarea class="form-control" name="description" placeholder="Descripción" style="margin-bottom: 20px;">{{product.description}}</textarea>
+                                <label class="form-label">Precio del producto</label>
+                                <input class="form-control" type="number" name="price" value="{{product.price}}" style="margin-bottom: 20px;" placeholder="Precio">
+                                <label class="form-label">Imagen del producto</label>
+                                <input class="form-control" type="file" accept="image/*" name="image" style="margin-bottom: 30px;">
+                            </div>
+                        </div><button class="btn btn-primary" type="submit" style="background: var(--bs-orange);border-style: none;font-family: 'Be Vietnam Pro', sans-serif;">Modificar producto</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{%  endblock %}

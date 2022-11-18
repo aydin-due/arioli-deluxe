@@ -42,7 +42,7 @@
                         <p class="card-text">{{product.description}}</p>
                         <div class="row d-xl-flex justify-content-xl-center">
                             <div class="col-lg-4 col-xl-5 d-xl-flex align-items-xl-center" style="text-align: left;">
-                                <button class="btn btn-primary d-xl-flex justify-content-xl-center" type="button" style="border-style: none;background: var(--bs-orange);width: 130px;text-align: center;font-family: 'Be Vietnam Pro', sans-serif;">Editar</button>
+                                <a class="btn btn-primary d-xl-flex justify-content-xl-center" href="{{url_for('update_product', id_product=product._id)}}" role="button" style="border-style: none;background: var(--bs-orange);width: 130px;text-align: center;font-family: 'Be Vietnam Pro', sans-serif;">Editar</a>
                             </div>
                             <div class="col-xl-5 d-xl-flex justify-content-xl-end">
                                 <button class="btn btn-primary d-xl-flex justify-content-xl-center" type="button" style="border-style: none;background: #000000;width: 130px;font-family: 'Be Vietnam Pro', sans-serif;">Eliminar</button>

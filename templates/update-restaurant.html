@@ -17,9 +17,9 @@
                 <div class="col-md-6 col-xl-5">
                     <div class="card">
                         <div class="card-body text-center text-body d-flex flex-column align-items-center" style="padding-top: 30px;">
-                            <form method="post" style="margin-bottom: 10px;padding-right: 50px;padding-left: 50px;">
+                            <form method="post" style="margin-bottom: 10px;padding-right: 50px;padding-left: 50px;" enctype="multipart/form-data">
                                 <label class="form-label" style="font-family: 'Be Vietnam Pro', sans-serif;">Nombre del restaurante</label>
-                                <input class="form-control" type="text" name="username" value="{{ rest.username }}" placeholder="Nombre" style="margin-bottom: 20px;font-family: 'Be Vietnam Pro', sans-serif;" required>
+                                <input class="form-control" type="text" name="username" value="{{ rest.name }}" placeholder="Nombre" style="margin-bottom: 20px;font-family: 'Be Vietnam Pro', sans-serif;" required>
                                 <label class="form-label" style="font-family: 'Be Vietnam Pro', sans-serif;">Correo electrónico</label>
                                 <input class="form-control" type="text" name="email" value="{{ rest.email }}" placeholder="Correo electrónico" style="margin-bottom: 20px;font-family: 'Be Vietnam Pro', sans-serif;" required>
                                 <label class="form-label" style="font-family: 'Be Vietnam Pro', sans-serif;">Contraseña</label>

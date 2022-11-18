@@ -20,3 +20,14 @@ class Restaurant:
             "category": self.category,
             "logo": self.logo
         }
+
+    def updateDBCollection(self):
+        return {
+            "name": self.name,
+            "email": self.email,
+            "password": self.password,
+            "description": self.description,
+            "address": self.address,
+            "category": self.category,
+            "logo": self.logo
+        }

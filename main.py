@@ -123,7 +123,7 @@ def update_account():
             session['username'] = username
             session['email'] = email
             session['restaurant'] = True
-            restaurants.update_one({'_id': restaurant['_id']}, {'$set': new_restaurant.toBDCollection()})
+            restaurants.update_one({'_id': restaurant['_id']}, {'$set': new_restaurant.updateDBCollection()})
             return redirect(url_for('account'))
         return render_template('update-restaurant.html', restaurant=is_restaurant(), rest=restaurant)
     else:
@@ -186,18 +186,8 @@ def products():
     if request.method == 'POST':
         name = request.form['search']
         products = list(db['products'].find({'_id': {'$in': products_list}, 'name': {'$regex': name, '$options': 'i'}}))
-
     if is_restaurant():
         return render_template('products-admin.html', restaurant=is_restaurant(), rest=restaurant, products=products)
-
-    # if request.method == 'POST':
-    #     products = list(db['products'].find({"name": {'$regex' : request.form['search'], '$options' : 'i'}}))
-    # if not products:
-    #     error = 'No se encontraron productos ;('
-    # if is_admin():
-    #     return render_template('products-admin.html', admin=is_admin(), products=products, error=error)
-    # if 'username' in session:
-    #     return render_template('products.html', admin=is_admin(), products=products, error=error, user=session['username'])
     return render_template('products.html', restaurant=is_restaurant(), rest=restaurant, products=products)
 
 @app.route('/add-product', methods=['GET', 'POST'])
@@ -218,17 +208,11 @@ def add_product():
 def update_product(id_product):
     products = db['products']
     product = products.find_one({'_id': id_product})
-    id_recipe = product['recipe']
-    recipe = db['recipes'].find_one({'_id': id_recipe})
-    recipe['steps'] = '\n'.join(recipe['steps'])
     if request.method == 'POST':
-        product, recipe = set_product(request, id_product = id_product, id_recipe = id_recipe)
+        product = set_product(request, id_product = id_product)
         products.update_one({'_id': id_product}, {'$set': product.updateDBCollection()})
-        db['recipes'].update_one({'_id': id_recipe}, {'$set': recipe.updateDBCollection()})
-        recipe = db['recipes'].find_one({'_id': id_recipe})
-        recipe['steps'] = '\n'.join(recipe['steps'])
-        return render_template('update-product.html', admin=is_admin(), product=product, recipe=recipe, error='Producto actualizado correctamente :^)')
-    return render_template('update-product.html', admin=is_admin(), product=product, recipe=recipe)
+        return redirect(url_for('products'))
+    return render_template('update-product.html', restaurant=is_restaurant(), product=product)
 
 @app.route('/delete-product/<int:id_product>')
 def delete_product(id_product):
@@ -415,12 +399,15 @@ def set_restaurant(request, *args, **kwargs):
         if request.files['logo'].filename != '':
             logo = request.files['logo'].read()
             fs = gridfs.GridFS(db)
+            if fs.exists(filename=filename):
+                fs.delete(filename)
             fs.put(logo, filename=filename)
 
     restaurant = Restaurant(id_restaurant, username, email, password, description, address, category, filename)
     return restaurant
 
 def set_product(request, *args, **kwargs):
+
     products = db['products']
 
     if 'id_product' in kwargs:
@@ -430,10 +417,13 @@ def set_product(request, *args, **kwargs):
 
     filename = 'product' + str(id_product) + '.jpg'
 
-    if request.files['image'].filename != '':
-        image = request.files['image'].read()
-        fs = gridfs.GridFS(db)
-        fs.put(image, filename=filename)
+    if 'image' in request.files:
+        if request.files['image'].filename != '':
+            image = request.files['image'].read()
+            fs = gridfs.GridFS(db)
+            if fs.exists(filename=filename):
+                fs.delete(filename)
+            fs.put(image, filename=filename)
         
     product = Product(id_product, request.form['name'], request.form['description'], request.form['price'], filename)
 
