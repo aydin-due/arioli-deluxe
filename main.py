@@ -180,9 +180,13 @@ def products():
         restaurant = restaurants.find_one({'_id': int(id_restaurant)})
     else:
         restaurant = restaurants.find_one({'email': session['email']})
+        
     products_list = restaurant.get('products', [])
     products = list(db['products'].find({'_id': {'$in': products_list}}))
-    print(products)
+    if request.method == 'POST':
+        name = request.form['search']
+        products = list(db['products'].find({'_id': {'$in': products_list}, 'name': {'$regex': name, '$options': 'i'}}))
+
     if is_restaurant():
         return render_template('products-admin.html', restaurant=is_restaurant(), rest=restaurant, products=products)
 
