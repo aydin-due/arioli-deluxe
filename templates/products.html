@@ -24,24 +24,26 @@
         </div>
         
     </div>
-    <div class="container">
+    <div class="container d-xl-flex justify-content-evenly flex-wrap align-items-xl-center">
         {% if products %}
-        <div class="row" style="margin-bottom: 100px;">
+        {% for product in products %}
+        <div class="row" style="width: 400px;margin-bottom: 100px;">
             <div class="col">
                 <div class="card">
-                    <div class="card-body" style="padding-top: 100px;"><img class="d-lg-flex" style="border-radius: 50%;width: 150px;height: 150px;box-shadow: 0px 10px 20px 4px var(--bs-gray-500);position: absolute;top: -50px;left: 50%;-webkit-transform: translateX(-50%);transform: translateX(-50%);" src="assets/img/products/1.jpg">
+                    <div class="card-body" style="padding-top: 100px;"><img class="d-lg-flex" style="border-radius: 50%;width: 150px;height: 150px;box-shadow: 0px 10px 20px 4px var(--bs-gray-500);position: absolute;top: -50px;left: 50%;-webkit-transform: translateX(-50%);transform: translateX(-50%);" src="{{url_for('image', filename=product.image)}}">
                         <h4 class="card-title" style="font-family: Amaranth, sans-serif;text-align: center;padding-top: 30px;">Nombre del producto</h4>
-                        <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                        <p class="card-text">{{product.description}}</p>
                         <div class="row">
                             <div class="col-lg-4 col-xl-4 d-xl-flex align-items-xl-center" style="text-align: left;">
-                                <h4 style="font-family: Amaranth, sans-serif;">$0.00</h4>
+                                <h4 style="font-family: Amaranth, sans-serif;">${{product.price}}</h4>
                             </div>
-                            <div class="col d-xl-flex justify-content-xl-end"><button class="btn btn-primary d-xl-flex" type="button" style="border-style: none;background: #000000;">Agregar al carrito</button></div>
+                            <div class="col d-xl-flex justify-content-xl-end"><button class="btn btn-primary d-xl-flex" type="button" style="border-style: none;background: #000000;font-family: 'Be Vietnam Pro', sans-serif;">Agregar al carrito</button></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        {% endfor %}
         {% else %}
         <div class="row mb-4 mb-lg-5" style="text-align: center;padding-top: 100px;">
             <div class="mb-3">
