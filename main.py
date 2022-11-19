@@ -321,10 +321,11 @@ def order():
         restaurants = db['restaurants']
         users = db['users']
         order = orders.find_one({'_id': int(id_order)})
-        order['restaurant'] = restaurants.find_one({"orders": order['_id']})
-        order['client'] = users.find_one({"orders": order['_id']})
         if not order:
             error = 'No se encontró ninguna orden, verifique el id ;('
+        else:
+            order['client'] = users.find_one({"orders": order['_id']})
+            order['restaurant'] = restaurants.find_one({"orders": order['_id']})
     return render_template('order.html', restaurant=is_restaurant(), order=order, error=error)
 
 @app.route('/orders')

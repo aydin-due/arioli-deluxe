@@ -19,7 +19,7 @@
     </form>
 </div>
 {% if error %}
-<div class="row mb-4 mb-lg-5" style="text-align: center;padding-top: 20px;">
+<div class="row mb-4 mb-lg-5" style="text-align: center;padding-top: 50px;">
     <div class="mb-3">
         <p class="fw-bold text-success mb-2", style="color: var(--bs-orange) !important;font-family: 'Be Vietnam Pro', sans-serif;"">{{ error }}</p>
     </div>
@@ -47,18 +47,24 @@
                 </div>
             </div>
         </div>
+        {% if order.status == "pending" %}
         <div class="col-xl-4 d-xl-flex justify-content-xl-end" style="margin-top: 50px;">
-            {% if order.status == "pending" %}
             <a class="btn btn-primary shadow" role="button" href="account.html" style="border-style: none;background: var(--bs-orange);font-family: 'Be Vietnam Pro', sans-serif;">Cancelar pedido</a>
+        </div>
             {% elif order.status == 'accepted' %}
+            <div class="col-xl-4 d-xl-flex justify-content-xl-end" style="margin-top: 25px;">
             <img src="{{url_for('static', filename='img/animation_500_lahpp7gc.gif')}}" style="width: 100px;height: 100px;">
             <p class="d-xl-flex justify-content-xl-end align-items-xl-center" style="margin-bottom: 0px;color: var(--bs-orange);text-align: left;width: 200px;">El restaurante está trabajando en tu pedido</p>
+            </div>
             {% elif order.status == 'canceled' %}
+             <div class="col-xl-4 d-xl-flex justify-content-xl-end" style="margin-top: 75px;">
             <p class="d-xl-flex justify-content-xl-end align-items-xl-center" style="margin-bottom: 0px;color: var(--bs-orange);text-align: right;width: 200px;">Cancelado</p>
+             </div>
             {% else %}
+        <div class="col-xl-4 d-xl-flex justify-content-xl-end" style="margin-top: 75px;">
             <p class="d-xl-flex justify-content-xl-end align-items-xl-center" style="margin-bottom: 0px;color: var(--bs-orange);text-align: right;width: 200px;">Entregado</p>
-            {% endif %}
         </div>
+            {% endif %}
     </div>
     <div class="card" style="margin-bottom: 100PX;">
         <div class="card-body">
