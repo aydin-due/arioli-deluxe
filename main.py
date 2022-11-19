@@ -331,7 +331,7 @@ def orders():
             orders.reverse()
             for order in orders:
                 order['client'] = users.find_one({"orders": order['_id']})
-            return render_template('orders-admin.html', restaurant=is_restaurant(), user=user, orders=orders)
+            return render_template('orders.html', restaurant=is_restaurant(), user=user, orders=orders)
         if 'orders' not in user:
             return render_template('orders.html', restaurant=is_restaurant(), user=user, error='No tiene ninguna orden :(')
         orders = db['orders']
@@ -361,20 +361,18 @@ def make_order(id_cart):
     users.update_one({"email": session['email']}, {"$unset": {"cart": ""}})
     carts.delete_one({"_id": id_cart})
     restaurant = restaurants.find_one({'_id': cart['restaurant']['_id']})
-    user_orders = user.get('orders', []).append(id_order)
-    users.update_one({"email": session['email']}, {"$set": {"orders": [id_order]}})
-    restaurant_orders = restaurant.get('orders', []).append(id_order)
-    restaurants.update_one({"_id": restaurant['_id']}, {"$set": {"orders": [id_order]}})
+    user_orders = user.get('orders', [])
+    user_orders.append(id_order)
+    users.update_one({"email": session['email']}, {"$set": {"orders": user_orders}})
+    restaurant_orders =  restaurant.get('orders', [])
+    restaurant_orders.append(id_order)
+    restaurants.update_one({"_id": restaurant['_id']}, {"$set": {"orders": restaurant_orders}})
     return redirect(url_for('orders', error='Orden realizada correctamente :^)'))
 
-@app.route('/delivered-order/<int:id_order>')
-def delivered_order(id_order):
+@app.route('/deliver-order/<int:id_order>')
+def deliver_order(id_order):
     orders = db['orders']
-    order = orders.find_one({"_id": id_order})
-    if order['delivered']:
-        orders.update_one({"_id": id_order}, {"$set": {"delivered": False}})
-    else:
-        orders.update_one({"_id": id_order}, {"$set": {"delivered": True}})
+    orders.update_one({"_id": id_order}, {"$set": {"status": 'delivered'}})
     return redirect(url_for('orders'))
 
 @app.route('/cancel-order/<int:id_order>')
@@ -382,6 +380,12 @@ def cancel_order(id_order):
     orders = db['orders']
     orders.update_one({"_id": id_order}, {"$set": {"status": "canceled"}})
     return redirect(url_for('orders', error='Orden cancelada correctamente :^)'))
+
+@app.route('/accept-order/<int:id_order>')
+def accept_order(id_order):
+    orders = db['orders']
+    orders.update_one({"_id": id_order}, {"$set": {"status": "accepted"}})
+    return redirect(url_for('orders'))
 
 # UTILS
 

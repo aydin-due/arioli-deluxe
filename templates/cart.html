@@ -31,9 +31,9 @@
                                 <div class="mb-3"><label class="form-label">Restaurante</label>
                                     <input class="form-control" type="text" name="restaurant" placeholder="Restaurante" value="{{ cart.restaurant.name }}" style="margin-bottom: 20px;font-family: 'Be Vietnam Pro', sans-serif;" readonly>
                                     <label class="form-label">Número de mesa</label>
-                                    <input class="form-control" type="text" name="table" placeholder="Número de mesa" style="margin-bottom: 20px;font-family: 'Be Vietnam Pro', sans-serif;">
+                                    <input class="form-control" type="text" name="table" placeholder="Número de mesa" style="margin-bottom: 20px;font-family: 'Be Vietnam Pro', sans-serif;" required>
                                     <label class="form-label">Cliente</label>
-                                    <input class="form-control" type="text" name="client" value="{{ user.username }}" placeholder="Nombre del cliente" style="margin-bottom: 20px;font-family: 'Be Vietnam Pro', sans-serif;">
+                                    <input class="form-control" type="text" name="client" value="{{ user.username }}" placeholder="Nombre del cliente" style="margin-bottom: 20px;font-family: 'Be Vietnam Pro', sans-serif;" required>
                                 </div>
                             </div><button class="btn btn-primary" type="submit" style="background: var(--bs-orange);border-style: none;font-family: 'Be Vietnam Pro', sans-serif;">Realizar pedido</button>
                         </form>

@@ -31,7 +31,7 @@
                 </div>
                 {% if restaurant %}
                 <div class="col d-xl-flex justify-content-xl-center align-items-xl-center" style="color: var(--bs-white);">
-                    <p><strong>Cliente: {{ order.client.name }}</strong><br></p>
+                    <p><strong>Cliente:</strong> {{ order.client.username }}<br></p>
                 </div>
                 {% else %}
                 <div class="col-xl-3 d-xl-flex justify-content-xl-center align-items-xl-center" style="color: var(--bs-white);">
@@ -42,9 +42,24 @@
                     <p><strong>Mesa:</strong> {{ order.table }}</p>
                 </div>
                 {% if order.status == 'pending' %}
-                <div class="col d-xl-flex justify-content-xl-end"><a class="btn btn-primary shadow" role="button" href="{{url_for('cancel_order', id_order=order._id)}}" style="border-style: none;background: var(--bs-orange);font-family: 'Be Vietnam Pro', sans-serif;">Cancelar pedido</a></div>
+                    {% if restaurant %}
+                    <div class="col d-xl-flex justify-content-xl-end">
+                        <a class="btn btn-primary shadow" role="button" href="{{url_for('cancel_order', id_order=order._id)}}" style="border-style: none;background: var(--bs-orange);font-family: 'Be Vietnam Pro', sans-serif;">Cancelar</a>
+                        <a class="btn btn-primary shadow" role="button" href="{{url_for('accept_order', id_order=order._id)}}" style="border-style: none;background: var(--bs-orange);font-family: 'Be Vietnam Pro', sans-serif; margin-left: 20px;">Aceptar</a>
+                    </div>
+                    {% else %}
+                    <div class="col d-xl-flex justify-content-xl-end">
+                    <a class="btn btn-primary shadow" role="button" href="{{url_for('cancel_order', id_order=order._id)}}" style="border-style: none;background: var(--bs-orange);font-family: 'Be Vietnam Pro', sans-serif; margin-left: 20px;">Cancelar pedido</a>
+                    </div>
+                    {% endif %}
                 {% elif order.status == 'accepted' %}
-                <div class="col d-xl-flex justify-content-xl-end"><a class="btn btn-primary shadow" role="button" href="account.html" style="border-style: none;background: var(--bs-orange);font-family: 'Be Vietnam Pro', sans-serif;">Ver estado del pedido</a></div>
+                    <div class="col-xl-4 d-xl-flex justify-content-xl-end">
+                    {% if restaurant %}
+                    <a class="btn btn-primary shadow" role="button" href="{{url_for('deliver_order', id_order=order._id)}}" style="border-style: none;background: var(--bs-orange);font-family: 'Be Vietnam Pro', sans-serif; margin-left: 20px;">Marcar como entregado</a>
+                    {% else %}
+                    <a class="btn btn-primary shadow" role="button" href="account.html" style="border-style: none;background: var(--bs-orange);font-family: 'Be Vietnam Pro', sans-serif;">Ver estado del pedido</a>
+                    {% endif %}
+                    </div>
                 {% elif order.status == 'canceled' %}
                 <div class="col d-xl-flex justify-content-xl-end align-items-xl-end" style="color: var(--bs-white);">
                     <p style="color: var(--bs-orange);"><strong>Cancelado</strong></p>
