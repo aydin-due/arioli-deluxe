@@ -174,6 +174,7 @@ def restaurants():
 
 @app.route('/products', methods=["GET", "POST"])
 def products():
+    error = request.args.get('error')
     restaurants = db['restaurants']
     id_restaurant = request.args.get('id_restaurant')
     if id_restaurant:
@@ -188,7 +189,7 @@ def products():
         products = list(db['products'].find({'_id': {'$in': products_list}, 'name': {'$regex': name, '$options': 'i'}}))
     if is_restaurant():
         return render_template('products-admin.html', restaurant=is_restaurant(), rest=restaurant, products=products)
-    return render_template('products.html', restaurant=is_restaurant(), rest=restaurant, products=products)
+    return render_template('products.html', restaurant=is_restaurant(), rest=restaurant, products=products, error=error)
 
 @app.route('/add-product', methods=['GET', 'POST'])
 def add_product():
@@ -247,10 +248,10 @@ def cart():
                     cart['total'] = sum([int(product['unit_total']) for product in cart['products']])
                     carts.update_one({'_id': user['cart']}, {'$set': cart})
                     return redirect(url_for('make_order', id_cart=user['cart']))
-            return render_template('cart.html', cart=cart, admin=is_admin(), user=user)
+            return render_template('cart.html', cart=cart,  restaurant=is_restaurant(), user=user)
         else:
-            return render_template('cart.html', admin=is_admin(), user=user, error='Su carrito de compras está vacío ;(')
-    return render_template('cart.html', admin=is_admin(), error="Inicie sesión para ver su carrito de compras, o cree una cuenta si no tiene una :^)")
+            return render_template('cart.html',  restaurant=is_restaurant(), user=user, error='Su carrito de compras está vacío ;(')
+    return render_template('cart.html',  restaurant=is_restaurant(), error="Inicie sesión para ver su carrito de compras, o cree una cuenta si no tiene una :^)")
 
 @app.route('/add-to-cart/<int:id_product>', methods=["GET", "POST"])
 def add_to_cart(id_product):
@@ -261,9 +262,13 @@ def add_to_cart(id_product):
     carts = db['carts']
     product['quantity'] = 1
     product['unit_total'] = product['price']
+    restaurants = db['restaurants']
+    restaurant = restaurants.find_one({'products': id_product})
     if 'cart' in user:
         id_cart = user['cart']
         cart = carts.find_one({"_id": id_cart})
+        if cart['restaurant']['_id'] != restaurant['_id']:
+            return redirect(url_for('products', id_restaurant=restaurant['_id'], error='No puedes agregar productos de distintos restaurantes a tu carrito de compras :^('))
         index = next((i for i, product in enumerate(cart['products']) if product['_id'] == id_product), None)
         if index is not None:
             product_in_cart = cart['products'][index]
@@ -275,10 +280,10 @@ def add_to_cart(id_product):
         carts.update_one({"_id": id_cart}, {"$set": {"products": cart['products'], "total": cart_total}})
     else:
         id_cart = get_id(carts)
-        cart = Cart(id_cart, [product], product['price'])
+        cart = Cart(id_cart, restaurant, [product], product['price'])
         carts.insert_one(cart.toDBCollection())
         users.update_one({"email": session['email']}, {"$set": {"cart": id_cart}})
-    return redirect(url_for('products', error='Producto añadido al carrito :^)'))
+    return redirect(url_for('products', error='Producto añadido al carrito :^)', id_restaurant=restaurant['_id']))
 
 @app.route('/remove-from-cart/<int:id_product>')
 def remove_from_cart(id_product):
@@ -300,6 +305,17 @@ def remove_from_cart(id_product):
 
 
 # ORDER
+
+@app.route('/order')
+def order():
+    if request.method == 'POST':
+        id_order = request.form['order']
+        orders = db['orders']
+        order = orders.find_one({'_id': id_order})
+        if not order:
+            error = 'No se encontró ninguna orden, verifique el id ;('
+        return render_template('order.html', order=order, restaurant=is_restaurant(), error=error)
+    return render_template('order.html', restaurant=is_restaurant())
 
 @app.route('/orders')
 def orders():
