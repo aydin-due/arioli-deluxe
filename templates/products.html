@@ -43,9 +43,11 @@
                             <div class="col-lg-4 col-xl-4 d-xl-flex align-items-xl-center" style="text-align: left;">
                                 <h4 style="font-family: Amaranth, sans-serif;">${{product.price}}</h4>
                             </div>
+                            {% if user %}
                             <div class="col d-xl-flex justify-content-xl-end">
                                 <a class="btn btn-primary d-xl-flex" href="{{url_for('add_to_cart', id_product=product._id)}}" role="button" style="border-style: none;background: #000000;font-family: 'Be Vietnam Pro', sans-serif;">Agregar al carrito</a>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

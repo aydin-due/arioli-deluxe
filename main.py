@@ -189,7 +189,8 @@ def products():
         products = list(db['products'].find({'_id': {'$in': products_list}, 'name': {'$regex': name, '$options': 'i'}}))
     if is_restaurant():
         return render_template('products-admin.html', restaurant=is_restaurant(), rest=restaurant, products=products)
-    return render_template('products.html', restaurant=is_restaurant(), rest=restaurant, products=products, error=error)
+    user = session.get('username', None)
+    return render_template('products.html', restaurant=is_restaurant(), rest=restaurant, products=products, error=error, user=user)
 
 @app.route('/add-product', methods=['GET', 'POST'])
 def add_product():
@@ -357,15 +358,21 @@ def make_order(id_cart):
     id_order = get_id(orders)
     date = datetime.datetime.now()
     order = Order(id_order, table, cart['products'], cart['total'], date)
-    orders.insert_one(order.toDBCollection())
-    users.update_one({"email": session['email']}, {"$unset": {"cart": ""}})
-    carts.delete_one({"_id": id_cart})
     restaurant = restaurants.find_one({'_id': cart['restaurant']['_id']})
     user_orders = user.get('orders', [])
     user_orders.append(id_order)
-    users.update_one({"email": session['email']}, {"$set": {"orders": user_orders}})
     restaurant_orders =  restaurant.get('orders', [])
+    table_occupied = orders.find({'_id': {'$in': restaurant_orders}, 'table': table, '$and': [{'status': {"$ne": 'delivered'}}, {'status': {"$ne": 'cancelled'}}]})
+    if len(list(table_occupied)) > 0:
+        return redirect(url_for('cart', error='La mesa ya está ocupada, por favor verifique el número de mesa'))
+    already_ordered = orders.find({'_id': {'$in': user_orders}, '$and': [{'status': {"$ne": 'delivered'}}, {'status': {"$ne": 'cancelled'}}]})
+    if len(list(already_ordered)) > 0:
+        return redirect(url_for('cart', error='Ya tiene una orden en proceso, por favor espere a que sea entregada'))
     restaurant_orders.append(id_order)
+    users.update_one({"email": session['email']}, {"$set": {"orders": user_orders}})
+    orders.insert_one(order.toDBCollection())
+    users.update_one({"email": session['email']}, {"$unset": {"cart": ""}})
+    carts.delete_one({"_id": id_cart})
     restaurants.update_one({"_id": restaurant['_id']}, {"$set": {"orders": restaurant_orders}})
     return redirect(url_for('orders', error='Orden realizada correctamente :^)'))
 
