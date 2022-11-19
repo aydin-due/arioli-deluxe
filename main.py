@@ -234,6 +234,7 @@ def delete_product(id_product):
 
 @app.route('/cart', methods=['GET', 'POST'])
 def cart():
+    error = request.args.get('error')
     if 'username' in session:
         users = db['users']
         user = users.find_one({"email": session['email']})
@@ -242,13 +243,14 @@ def cart():
             cart = carts.find_one({"_id": user['cart']})
             if request.method == 'POST':
                 quantities = request.form.getlist('quantity')
+                table = request.form['table']
                 for i in range(len(cart['products'])):
                     cart['products'][i]['quantity'] = quantities[i]
                     cart['products'][i]['unit_total'] = int(cart['products'][i]['price']) * int(quantities[i])
                     cart['total'] = sum([int(product['unit_total']) for product in cart['products']])
                     carts.update_one({'_id': user['cart']}, {'$set': cart})
-                    return redirect(url_for('make_order', id_cart=user['cart']))
-            return render_template('cart.html', cart=cart,  restaurant=is_restaurant(), user=user)
+                    return redirect(url_for('make_order', id_cart=user['cart'], table=table))
+            return render_template('cart.html', cart=cart,  restaurant=is_restaurant(), user=user, error=error)
         else:
             return render_template('cart.html',  restaurant=is_restaurant(), user=user, error='Su carrito de compras está vacío ;(')
     return render_template('cart.html',  restaurant=is_restaurant(), error="Inicie sesión para ver su carrito de compras, o cree una cuenta si no tiene una :^)")
@@ -323,42 +325,46 @@ def orders():
     if 'username' in session:
         users = db['users']
         user = users.find_one({"email": session['email']})
-        if user['admin']:
+        if is_restaurant():
             orders = db['orders']
             orders = list(orders.find())
             orders.reverse()
             for order in orders:
                 order['client'] = users.find_one({"orders": order['_id']})
-            return render_template('orders-admin.html', admin=is_admin(), user=user, orders=orders)
+            return render_template('orders-admin.html', restaurant=is_restaurant(), user=user, orders=orders)
         if 'orders' not in user:
-            return render_template('orders.html', admin=is_admin(), user=user, error='No tiene ninguna orden :(')
+            return render_template('orders.html', restaurant=is_restaurant(), user=user, error='No tiene ninguna orden :(')
         orders = db['orders']
+        restaurants = db['restaurants']
         orders_list = []
         for id_order in user['orders']:
             order = orders.find_one({"_id": id_order})
+            order['restaurant'] = restaurants.find_one({"orders": order['_id']})
             orders_list.append(order)
         orders_list.reverse()
-        return render_template('orders.html', orders=orders_list, admin=is_admin(), user=user, error=error)
-    return render_template('orders.html', admin=is_admin(), error="Inicie sesión para ver su historial de órdenes, o cree una cuenta si no tiene una :^)")
+        return render_template('orders.html', orders=orders_list, restaurant=is_restaurant(), user=user, error=error)
+    return render_template('orders.html', restaurant=is_restaurant(), error="Inicie sesión para ver su historial de órdenes, o cree una cuenta si no tiene una :^)")
 
 @app.route('/make-order/<int:id_cart>', methods=["GET", "POST"])
 def make_order(id_cart):
+    table = request.args.get('table')
     carts = db['carts']
+    restaurants = db['restaurants']
     cart = carts.find_one({"_id": id_cart})
     users = db['users']
     user = users.find_one({"email": session['email']})
     orders = db['orders']
     id_order = get_id(orders)
     date = datetime.datetime.now()
-    order = Order(id_order, cart['products'], cart['total'], date)
+    order = Order(id_order, table, cart['products'], cart['total'], date)
     orders.insert_one(order.toDBCollection())
     users.update_one({"email": session['email']}, {"$unset": {"cart": ""}})
     carts.delete_one({"_id": id_cart})
-    if 'orders' in user:
-        user['orders'].append(id_order)
-        users.update_one({"email": session['email']}, {"$set": {"orders": user['orders']}})
-    else:
-        users.update_one({"email": session['email']}, {"$set": {"orders": [id_order]}})
+    restaurant = restaurants.find_one({'_id': cart['restaurant']['_id']})
+    user_orders = user.get('orders', []).append(id_order)
+    users.update_one({"email": session['email']}, {"$set": {"orders": [id_order]}})
+    restaurant_orders = restaurant.get('orders', []).append(id_order)
+    restaurants.update_one({"_id": restaurant['_id']}, {"$set": {"orders": [id_order]}})
     return redirect(url_for('orders', error='Orden realizada correctamente :^)'))
 
 @app.route('/delivered-order/<int:id_order>')
@@ -374,7 +380,7 @@ def delivered_order(id_order):
 @app.route('/cancel-order/<int:id_order>')
 def cancel_order(id_order):
     orders = db['orders']
-    orders.update_one({"_id": id_order}, {"$set": {"canceled": True}})
+    orders.update_one({"_id": id_order}, {"$set": {"status": "canceled"}})
     return redirect(url_for('orders', error='Orden cancelada correctamente :^)'))
 
 # UTILS

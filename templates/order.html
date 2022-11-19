@@ -5,133 +5,228 @@
 {% block title %}Inicio{% endblock %}
 
 {% block content %}
-    <div class="container py-5" style="border-radius: 50px;">
-        <div class="row mb-4 mb-lg-5">
-            <div class="col-md-8 col-xl-6 text-center mx-auto">
-                <h1 style="font-family: Amaranth, sans-serif;color: var(--bs-orange);">Consulta tu pedido</h1>
-            </div>
-        </div>
-        <div class="col-xl-12 d-flex align-items-end justify-content-xl-center" style="height: 60px;"><input type="number" placeholder="ID del pedido" style="width: 250px;border: 1px solid #ced4da;border-radius: 1rem;padding: .6rem 1.5rem;text-align: left;background: var(--bs-light);" name="portion"><a class="btn btn-primary shadow" role="button" href="account.html" style="border-style: none;background: var(--bs-orange);font-family: 'Be Vietnam Pro', sans-serif;margin-left: 50px;">Buscar</a></div>
-    </div>
-    <div class="container" id="order-container">
-        <div class="row" style="margin-bottom: 50px;">
-            <div class="col">
-                <h2 style="font-family: Amaranth, sans-serif;color: var(--bs-white);">Pedido #1</h2>
-                <div class="row">
-                    <div class="col d-xl-flex align-items-xl-center" style="color: var(--bs-white);">
-                        <p><strong>Fecha:</strong> 2020-10-01</p>
-                    </div>
-                    <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
-                        <p><strong>Total: $0.00</strong></p>
-                    </div>
-                    <div class="col d-xl-flex justify-content-xl-end"><a class="btn btn-primary shadow" role="button" href="account.html" style="border-style: none;background: var(--bs-orange);font-family: 'Be Vietnam Pro', sans-serif;">Cancelar pedido</a></div>
-                </div>
-            </div>
-        </div>
-        <div class="card" style="margin-bottom: 100PX;">
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th style="width: 500px;">PRODUCTO</th>
-                                <th>PRECIO</th>
-                                <th>CANTIDAD</th>
-                                <th>TOTAL</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr id="product-container">
-                                <td class="d-lg-flex d-xl-flex align-items-lg-center align-items-xl-center">
-                                    <div class="col-lg-2 col-xl-3"><img src="assets/img/products/1.jpg" width="100" style="border-radius: 10%;width: 80px;height: 80px;"></div>
-                                    <div class="col-lg-7 col-xl-8">
-                                        <p>Nombre del producto</p>
-                                        <h6 class="text-muted mb-2">Descripción del producto</h6>
-                                    </div>
-                                </td>
-                                <td style="vertical-align: middle;">$0.00</td>
-                                <td style="vertical-align: middle;">1</td>
-                                <td style="vertical-align: middle;">$0.00</td>
-                            </tr>
-                            <tr id="product-container-1">
-                                <td class="d-lg-flex d-xl-flex align-items-lg-center align-items-xl-center">
-                                    <div class="col-lg-2 col-xl-3"><img src="assets/img/products/1.jpg" width="100" style="border-radius: 10%;width: 80px;height: 80px;"></div>
-                                    <div class="col-lg-7 col-xl-8">
-                                        <p>Nombre del producto</p>
-                                        <h6 class="text-muted mb-2">Descripción del producto</h6>
-                                    </div>
-                                </td>
-                                <td style="vertical-align: middle;">$0.00</td>
-                                <td style="vertical-align: middle;">1</td>
-                                <td style="vertical-align: middle;">$0.00</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+<div class="container py-5" style="border-radius: 50px;">
+    <div class="row mb-4 mb-lg-5">
+        <div class="col-md-8 col-xl-6 text-center mx-auto">
+            <h1 style="font-family: Amaranth, sans-serif;color: var(--bs-orange);">Consulta tu pedido</h1>
         </div>
     </div>
-    <div class="container" id="order-container-1">
-        <div class="row" style="margin-bottom: 50px;">
-            <div class="col">
-                <h2 style="font-family: Amaranth, sans-serif;color: var(--bs-white);">Pedido #1</h2>
-                <div class="row">
-                    <div class="col d-xl-flex align-items-xl-center" style="color: var(--bs-white);">
-                        <p><strong>Fecha:</strong> 2020-10-01</p>
-                    </div>
-                    <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
-                        <p><strong>Total: $0.00</strong></p>
-                    </div>
-                    <div class="col d-xl-flex justify-content-xl-end align-items-xl-center"><img src="assets/img/animation_500_lahpp7gc.gif" style="width: 100px;height: 100px;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -32 576 576" width="1em" height="1em" fill="currentColor" class="swing animated infinite" style="width: 50px;height: 50px;color: var(--bs-orange);">
-                            <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
-                            <path d="M80 144C80 108.7 108.7 80 144 80C179.3 80 208 108.7 208 144C208 179.3 179.3 208 144 208C108.7 208 80 179.3 80 144zM284.4 176C269.9 240.1 212.5 288 144 288C64.47 288 0 223.5 0 144C0 64.47 64.47 0 144 0C212.5 0 269.9 47.87 284.4 112H356.2C365 102.2 377.8 96 392 96H496C522.5 96 544 117.5 544 144C544 170.5 522.5 192 496 192H392C377.8 192 365 185.8 356.2 176H284.4zM144 48C90.98 48 48 90.98 48 144C48 197 90.98 240 144 240C197 240 240 197 240 144C240 90.98 197 48 144 48zM424 264V272H520C533.3 272 544 282.7 544 296C544 309.3 533.3 320 520 320H280C266.7 320 256 309.3 256 296C256 282.7 266.7 272 280 272H376V264C376 250.7 386.7 240 400 240C413.3 240 424 250.7 424 264zM288 464V352H512V464C512 490.5 490.5 512 464 512H336C309.5 512 288 490.5 288 464zM176 320C202.5 320 224 341.5 224 368C224 394.5 202.5 416 176 416H160C160 433.7 145.7 448 128 448H64C46.33 448 32 433.7 32 416V336C32 327.2 39.16 320 48 320H176zM192 368C192 359.2 184.8 352 176 352H160V384H176C184.8 384 192 376.8 192 368zM200 464C213.3 464 224 474.7 224 488C224 501.3 213.3 512 200 512H24C10.75 512 0 501.3 0 488C0 474.7 10.75 464 24 464H200z"></path>
-                        </svg>
-                        <p style="margin-left: 20px;margin-bottom: 0px;color: var(--bs-orange);"><strong>El restaurante está trabajando</strong><br><strong>en tu pedido</strong></p>
-                    </div>
+    <div class="col-xl-12 d-flex align-items-end justify-content-xl-center" style="height: 60px;"><input type="number" placeholder="ID del pedido" style="width: 250px;border: 1px solid #ced4da;border-radius: 1rem;padding: .6rem 1.5rem;text-align: left;background: var(--bs-light);" name="portion"><a class="btn btn-primary shadow" role="button" href="account.html" style="border-style: none;background: var(--bs-orange);font-family: 'Be Vietnam Pro', sans-serif;margin-left: 50px;">Buscar</a></div>
+</div>
+<div class="container" id="order-container">
+    <div class="row d-xl-flex justify-content-xl-end" style="margin-bottom: 50px;">
+        <div class="col">
+            <h2 style="font-family: Amaranth, sans-serif;color: var(--bs-white);">Pedido #1</h2>
+            <div class="row">
+                <div class="col-xl-5 d-xl-flex align-items-xl-center" style="color: var(--bs-white);">
+                    <p style="margin-bottom: 0px;"><strong>Restaurante:</strong>&nbsp;Nombre del restaurante</p>
+                </div>
+                <div class="col-xl-2 d-xl-flex justify-content-xl-start align-items-xl-center" style="text-align: left;">
+                    <p style="margin-bottom: 0px;"><strong>Mesa: 0</strong></p>
+                </div>
+                <div class="col-xl-4 d-xl-flex justify-content-xl-start align-items-xl-center">
+                    <p style="margin-bottom: 0px;"><strong>Cliente: Nombre del cliente</strong></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-5 d-xl-flex justify-content-xl-start align-items-xl-center">
+                    <p style="margin-bottom: 0px;"><strong>Fecha:</strong>&nbsp;2020-10-01</p>
+                </div>
+                <div class="col-xl-6 d-xl-flex justify-content-xl-start align-items-xl-center">
+                    <p style="margin-bottom: 0px;"><strong>Total: $0.00</strong></p>
                 </div>
             </div>
         </div>
-        <div class="card" style="margin-bottom: 100PX;">
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th style="width: 500px;">PRODUCTO</th>
-                                <th>PRECIO</th>
-                                <th>CANTIDAD</th>
-                                <th>TOTAL</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr id="product-container-2">
-                                <td class="d-lg-flex d-xl-flex align-items-lg-center align-items-xl-center">
-                                    <div class="col-lg-2 col-xl-3"><img src="assets/img/products/1.jpg" width="100" style="border-radius: 10%;width: 80px;height: 80px;"></div>
-                                    <div class="col-lg-7 col-xl-8">
-                                        <p>Nombre del producto</p>
-                                        <h6 class="text-muted mb-2">Descripción del producto</h6>
-                                    </div>
-                                </td>
-                                <td style="vertical-align: middle;">$0.00</td>
-                                <td style="vertical-align: middle;">1</td>
-                                <td style="vertical-align: middle;">$0.00</td>
-                            </tr>
-                            <tr id="product-container-3">
-                                <td class="d-lg-flex d-xl-flex align-items-lg-center align-items-xl-center">
-                                    <div class="col-lg-2 col-xl-3"><img src="assets/img/products/1.jpg" width="100" style="border-radius: 10%;width: 80px;height: 80px;"></div>
-                                    <div class="col-lg-7 col-xl-8">
-                                        <p>Nombre del producto</p>
-                                        <h6 class="text-muted mb-2">Descripción del producto</h6>
-                                    </div>
-                                </td>
-                                <td style="vertical-align: middle;">$0.00</td>
-                                <td style="vertical-align: middle;">1</td>
-                                <td style="vertical-align: middle;">$0.00</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+        <div class="col-xl-3 d-xl-flex justify-content-xl-end" style="margin-top: 50px;"><a class="btn btn-primary shadow" role="button" href="account.html" style="border-style: none;background: var(--bs-orange);font-family: 'Be Vietnam Pro', sans-serif;">Cancelar pedido</a></div>
+    </div>
+    <div class="card" style="margin-bottom: 100PX;">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="width: 500px;">PRODUCTO</th>
+                            <th>PRECIO</th>
+                            <th>CANTIDAD</th>
+                            <th>TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="product-container">
+                            <td class="d-lg-flex d-xl-flex align-items-lg-center align-items-xl-center">
+                                <div class="col-lg-2 col-xl-3"><img src="assets/img/products/1.jpg" width="100" style="border-radius: 10%;width: 80px;height: 80px;"></div>
+                                <div class="col-lg-7 col-xl-8">
+                                    <p>Nombre del producto</p>
+                                    <h6 class="text-muted mb-2">Descripción del producto</h6>
+                                </div>
+                            </td>
+                            <td style="vertical-align: middle;">$0.00</td>
+                            <td style="vertical-align: middle;">1</td>
+                            <td style="vertical-align: middle;">$0.00</td>
+                        </tr>
+                        <tr id="product-container-1">
+                            <td class="d-lg-flex d-xl-flex align-items-lg-center align-items-xl-center">
+                                <div class="col-lg-2 col-xl-3"><img src="assets/img/products/1.jpg" width="100" style="border-radius: 10%;width: 80px;height: 80px;"></div>
+                                <div class="col-lg-7 col-xl-8">
+                                    <p>Nombre del producto</p>
+                                    <h6 class="text-muted mb-2">Descripción del producto</h6>
+                                </div>
+                            </td>
+                            <td style="vertical-align: middle;">$0.00</td>
+                            <td style="vertical-align: middle;">1</td>
+                            <td style="vertical-align: middle;">$0.00</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+</div>
+<div class="container" id="order-container-2">
+    <div class="row d-xl-flex justify-content-xl-end" style="margin-bottom: 50px;">
+        <div class="col">
+            <h2 style="font-family: Amaranth, sans-serif;color: var(--bs-white);">Pedido #1</h2>
+            <div class="row">
+                <div class="col-xl-5 d-xl-flex align-items-xl-center" style="color: var(--bs-white);">
+                    <p style="margin-bottom: 0px;"><strong>Restaurante:</strong>&nbsp;Nombre del restaurante</p>
+                </div>
+                <div class="col-xl-2 d-xl-flex justify-content-xl-start align-items-xl-center" style="text-align: left;">
+                    <p style="margin-bottom: 0px;"><strong>Mesa: 0</strong></p>
+                </div>
+                <div class="col-xl-4 d-xl-flex justify-content-xl-start align-items-xl-center">
+                    <p style="margin-bottom: 0px;"><strong>Cliente: Nombre del cliente</strong></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-5 d-xl-flex justify-content-xl-start align-items-xl-center">
+                    <p style="margin-bottom: 0px;"><strong>Fecha:</strong>&nbsp;2020-10-01</p>
+                </div>
+                <div class="col-xl-6 d-xl-flex justify-content-xl-start align-items-xl-center">
+                    <p style="margin-bottom: 0px;"><strong>Total: $0.00</strong></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 d-xl-flex justify-content-xl-end" style="margin-top: 50px;">
+            <p class="d-xl-flex justify-content-xl-end align-items-xl-center" style="margin-bottom: 0px;color: var(--bs-orange);text-align: right;width: 200px;"><strong>Emtregado</strong></p>
+        </div>
+    </div>
+    <div class="card" style="margin-bottom: 100PX;">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="width: 500px;">PRODUCTO</th>
+                            <th>PRECIO</th>
+                            <th>CANTIDAD</th>
+                            <th>TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="product-container-4">
+                            <td class="d-lg-flex d-xl-flex align-items-lg-center align-items-xl-center">
+                                <div class="col-lg-2 col-xl-3"><img src="assets/img/products/1.jpg" width="100" style="border-radius: 10%;width: 80px;height: 80px;"></div>
+                                <div class="col-lg-7 col-xl-8">
+                                    <p>Nombre del producto</p>
+                                    <h6 class="text-muted mb-2">Descripción del producto</h6>
+                                </div>
+                            </td>
+                            <td style="vertical-align: middle;">$0.00</td>
+                            <td style="vertical-align: middle;">1</td>
+                            <td style="vertical-align: middle;">$0.00</td>
+                        </tr>
+                        <tr id="product-container-5">
+                            <td class="d-lg-flex d-xl-flex align-items-lg-center align-items-xl-center">
+                                <div class="col-lg-2 col-xl-3"><img src="assets/img/products/1.jpg" width="100" style="border-radius: 10%;width: 80px;height: 80px;"></div>
+                                <div class="col-lg-7 col-xl-8">
+                                    <p>Nombre del producto</p>
+                                    <h6 class="text-muted mb-2">Descripción del producto</h6>
+                                </div>
+                            </td>
+                            <td style="vertical-align: middle;">$0.00</td>
+                            <td style="vertical-align: middle;">1</td>
+                            <td style="vertical-align: middle;">$0.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" id="order-container-1">
+    <div class="row" style="margin-bottom: 50px;">
+        <div class="col-xl-8">
+            <h2 style="font-family: Amaranth, sans-serif;color: var(--bs-white);">Pedido #1</h2>
+            <div class="row">
+                <div class="col-xl-6 d-xl-flex align-items-xl-center" style="color: var(--bs-white);">
+                    <p style="margin-bottom: 0px;"><strong>Restaurante:</strong>&nbsp;Nombre del restaurante</p>
+                </div>
+                <div class="col-xl-2 d-xl-flex justify-content-xl-start align-items-xl-center" style="text-align: left;">
+                    <p style="margin-bottom: 0px;"><strong>Mesa: 0</strong></p>
+                </div>
+                <div class="col-xl-4 d-xl-flex justify-content-xl-start align-items-xl-center">
+                    <p style="margin-bottom: 0px;"><strong>Cliente: Nombre del cliente</strong></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 d-xl-flex justify-content-xl-start align-items-xl-center">
+                    <p style="margin-bottom: 0px;"><strong>Fecha:</strong>&nbsp;2020-10-01</p>
+                </div>
+                <div class="col-xl-6 d-xl-flex justify-content-xl-start align-items-xl-center">
+                    <p style="margin-bottom: 0px;"><strong>Total: $0.00</strong></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="row d-xl-flex justify-content-xl-end" style="margin-left: 0px;margin-right: 0px;">
+                <div class="col-xl-4 d-xl-flex justify-content-xl-center"><img src="assets/img/animation_500_lahpp7gc.gif" style="width: 100px;height: 100px;"></div>
+                <div class="col-xl-1 d-xl-flex flex-fill justify-content-xl-end">
+                    <p class="d-xl-flex justify-content-xl-end align-items-xl-center" style="margin-bottom: 0px;color: var(--bs-orange);text-align: left;width: 200px;"><strong>El restaurante está trabajando&nbsp;en tu pedido</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card" style="margin-bottom: 100PX;">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="width: 500px;">PRODUCTO</th>
+                            <th>PRECIO</th>
+                            <th>CANTIDAD</th>
+                            <th>TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="product-container-2">
+                            <td class="d-lg-flex d-xl-flex align-items-lg-center align-items-xl-center">
+                                <div class="col-lg-2 col-xl-3"><img src="assets/img/products/1.jpg" width="100" style="border-radius: 10%;width: 80px;height: 80px;"></div>
+                                <div class="col-lg-7 col-xl-8">
+                                    <p>Nombre del producto</p>
+                                    <h6 class="text-muted mb-2">Descripción del producto</h6>
+                                </div>
+                            </td>
+                            <td style="vertical-align: middle;">$0.00</td>
+                            <td style="vertical-align: middle;">1</td>
+                            <td style="vertical-align: middle;">$0.00</td>
+                        </tr>
+                        <tr id="product-container-3">
+                            <td class="d-lg-flex d-xl-flex align-items-lg-center align-items-xl-center">
+                                <div class="col-lg-2 col-xl-3"><img src="assets/img/products/1.jpg" width="100" style="border-radius: 10%;width: 80px;height: 80px;"></div>
+                                <div class="col-lg-7 col-xl-8">
+                                    <p>Nombre del producto</p>
+                                    <h6 class="text-muted mb-2">Descripción del producto</h6>
+                                </div>
+                            </td>
+                            <td style="vertical-align: middle;">$0.00</td>
+                            <td style="vertical-align: middle;">1</td>
+                            <td style="vertical-align: middle;">$0.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -122,7 +122,7 @@
             <li class="nav-item">
               <a
                 class="nav-link"
-                href="cart.html"
+                href="/cart"
                 {% if active_page == 'cart' %} 
                 style="color: var(--bs-white) "
                 {% else %}
@@ -131,11 +131,23 @@
                 >Carrito</a
               >
             </li>
+            <li class="nav-item">
+              <a
+              class="nav-link"
+              href="/order"
+              {% if active_page == 'orders' %} 
+              style="color: var(--bs-white) "
+              {% else %}
+              style="color: var(--bs-gray-400) "
+              {% endif %}"
+              >Consulta tu pedido</a
+              >
+            </li>
             {% endif %}
             <li class="nav-item">
               <a
                 class="nav-link"
-                href="orders.html"
+                href="/orders"
                 {% if active_page == 'orders' %} 
                 style="color: var(--bs-white) "
                 {% else %}
@@ -144,7 +156,6 @@
                 >Pedidos</a
               >
             </li>
-            <li class="nav-item"></li>
           </ul>
           <a
             class="btn btn-primary shadow"
