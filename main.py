@@ -309,16 +309,23 @@ def remove_from_cart(id_product):
 
 # ORDER
 
-@app.route('/order')
+@app.route('/order', methods=['GET', 'POST'])
 def order():
+    order = None
+    error = None
+    id_order = request.args.get('id_order')
     if request.method == 'POST':
         id_order = request.form['order']
+    if id_order:
         orders = db['orders']
-        order = orders.find_one({'_id': id_order})
+        restaurants = db['restaurants']
+        users = db['users']
+        order = orders.find_one({'_id': int(id_order)})
+        order['restaurant'] = restaurants.find_one({"orders": order['_id']})
+        order['client'] = users.find_one({"orders": order['_id']})
         if not order:
             error = 'No se encontró ninguna orden, verifique el id ;('
-        return render_template('order.html', order=order, restaurant=is_restaurant(), error=error)
-    return render_template('order.html', restaurant=is_restaurant())
+    return render_template('order.html', restaurant=is_restaurant(), order=order, error=error)
 
 @app.route('/orders')
 def orders():
@@ -393,6 +400,7 @@ def accept_order(id_order):
     orders = db['orders']
     orders.update_one({"_id": id_order}, {"$set": {"status": "accepted"}})
     return redirect(url_for('orders'))
+
 
 # UTILS
 

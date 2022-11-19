@@ -57,7 +57,7 @@
                     {% if restaurant %}
                     <a class="btn btn-primary shadow" role="button" href="{{url_for('deliver_order', id_order=order._id)}}" style="border-style: none;background: var(--bs-orange);font-family: 'Be Vietnam Pro', sans-serif; margin-left: 20px;">Marcar como entregado</a>
                     {% else %}
-                    <a class="btn btn-primary shadow" role="button" href="account.html" style="border-style: none;background: var(--bs-orange);font-family: 'Be Vietnam Pro', sans-serif;">Ver estado del pedido</a>
+                    <a class="btn btn-primary shadow" role="button" href="{{url_for('order', id_order=order._id)}}" style="border-style: none;background: var(--bs-orange);font-family: 'Be Vietnam Pro', sans-serif;">Ver estado del pedido</a>
                     {% endif %}
                     </div>
                 {% elif order.status == 'canceled' %}

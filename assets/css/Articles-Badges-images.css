@@ -1,8 +1,0 @@
-.fit-cover {
-  object-fit: cover;
-}
-
-element.style:hover {
-  background: var(--bs-orange);
-}
-
