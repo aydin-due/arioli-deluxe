@@ -156,6 +156,18 @@
                 >Pedidos</a
               >
             </li>
+            <li class="nav-item">
+              <a
+              class="nav-link"
+              href="/privacy"
+              {% if active_page == 'privacy' %} 
+              style="color: var(--bs-white) "
+              {% else %}
+              style="color: var(--bs-gray-400) "
+              {% endif %}"
+              >Aviso de Privacidad</a
+              >
+            </li>
           </ul>
           <a
             class="btn btn-primary shadow"

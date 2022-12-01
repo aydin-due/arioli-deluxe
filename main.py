@@ -25,6 +25,11 @@ def home():
     return render_template('index.html', restaurant=is_restaurant())
 
 
+# PRIVACY
+@app.route('/privacy')
+def privacy():
+    return render_template('privacy.html', restaurant=is_restaurant())
+
 # USER 
 
 def is_restaurant():
